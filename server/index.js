@@ -28,6 +28,6 @@ const App = Express()
     // })
 
 
-App.listen("8080", ()=>{
-    console.log("Listening on :8080")
+App.listen(process.env.LISTEN_PORT, ()=>{
+    console.log(`Listening on :${process.env.LISTEN_PORT}`)
 })
