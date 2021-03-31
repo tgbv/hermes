@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/pub/materialize.css">
+    <script src="/pub/materialize.js"></script>
+    <script src="/pub/axios.js"></script>
+
+    <title>Hermes</title>
+
+    <style>
+        body {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1 0 auto;
+        }
+
+        /***/
+        .brand-logo img {
+            width: 40px;
+            position: relative;
+            top: 2px;  
+        }
+
+        .brand-logo span {
+            font-style: italic;
+        }
+        
+        .row .col {
+            padding: 0;
+        }
+        
+        .footer-copyright {
+            padding: 3px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav class="blue darken-2">
+        <div class="nav-wrapper container">
+            <a href="/" class="brand-logo">
+                <img src="/pub/logo.png" title="Homepage">
+                <span>Hermes</span>
+            </a>
+        </div>
+    </nav>
+</header>
+
+<main class="container">
+    <p class="flow-text">Send anonymous messages over TOR. Requires javascript.</p>
+
+    <div class="row">
+        <div class="col s12 m12 l6">
+            <div class="input-field ">
+                <input id="from" type="text" class="validate" maxlength="64">
+                <label for="from">From (can be anything, non numeric, max 64 chars)</label>
+            </div>
+
+            <div class="input-field">
+                <input id="to" type="text" class="validate" maxlength="64">
+                <label for="to">To. Receipt phone number (in international format)</label>
+            </div>
+
+            <div class="input-field">
+                <textarea id="text" class="materialize-textarea" maxlength="160"></textarea>
+                <label for="text">Text message. GSM-7 encoded. Max 160 chars. Multines supported.</label>
+            </div>
+            
+            <div class="btn green darken-2 waves-effect waves-light" onclick="sendMessage()">Send</div>
+
+        </div>
+    </div>
+</main>
+
+
+<footer class="blue darken-2 white-text " >
+    <div class="footer-copyright container ">
+        © 2021 tgbv and contributors
+        <a class="grey-text text-lighten-4 right" target="_blank" href="https://github.com/tgbv/hermes">Github</a>
+    </div>
+</footer>
+
+<script>
+    const _ = function(el){
+        return document.getElementById(el)
+    }
+
+    const toast = function(m){
+        M.toast({html:m})
+    }
+
+    const clearFields = function(){
+        _('from').value = ''
+        _('to').value = ''
+        _('text').value = ''
+
+        M.textareaAutoResize(_('text'))
+    }
+
+    const sendMessage = function(){
+        toast("sending message...")
+
+        let from = _('from').value
+        let to = _('to').value
+        let text = _('text').value
+
+        axios.post('/api/send', {
+            from, to, text
+        })
+        .then(res=>{
+            toast("message sent!")
+            clearFields()
+        })
+        .catch(e=>{
+            let r = e.response
+
+            if(r.status === 422)
+                r.data.errors.forEach(item=>toast(item.message ? item.message : item))
+            else {
+                toast("Internal error occurred. Try again later")
+                console.log(r.data)
+            }
+        })
+    }
+</script>
+
+</body>
+</html>

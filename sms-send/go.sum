@@ -1,0 +1,4 @@
+github.com/joho/godotenv v1.3.0 h1:Zjp+RcGpHhGlrMbJzXTrZZPrWj+1vfm90La1wgB6Bhc=
+github.com/joho/godotenv v1.3.0/go.mod h1:7hK45KPybAkOC6peb+G5yklZfMxEjkZhHbwpqxOKXbg=
+github.com/tgbv/telnyx-golang v0.0.0-20210331061941-05956e00b03f h1:3wxtgruf47WCEPmy6d2h6xqs3a0efet49TVhoXTKU7Q=
+github.com/tgbv/telnyx-golang v0.0.0-20210331061941-05956e00b03f/go.mod h1:PmHWfcsW8cpQHvLJICfJlH4Yspuk40CAEXz9QWmOuLw=
