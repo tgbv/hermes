@@ -2,6 +2,8 @@ const {t} = require('../util')
 const Fs = require('fs')
 const Path = require('path')
 
+const {Auth} = require('../controller')
+
 module.exports = require('express').Router()
 
     /*
@@ -10,6 +12,16 @@ module.exports = require('express').Router()
     .get('/', (req, res, next)=>{
         res.send(t('home'))
     })
+
+    /*
+    *   authentication related
+    */
+    .get('/login', Auth.loginForm)
+    .post('/login', Auth.login)
+    .get('/register', Auth.regForm)
+    .post('/register', Auth.register)
+    
+    
     
     /*
     *   for public files
@@ -20,4 +32,6 @@ module.exports = require('express').Router()
             next(e)
         })
     })
+
+
     

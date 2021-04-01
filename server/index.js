@@ -2,32 +2,42 @@
 *   all import
 */
 const Express = require('express')
-const Dotenv = require('dotenv')
-const Bodyparser = require('body-parser')
-const Server = require('http')
+const Dotenv = require('dotenv'); Dotenv.config()
 const Compress = require('compression')
+const {sHttp, DB} = require('./server');
 
 
 /*
 *   all config
 */
-Dotenv.config()
-const App = Express()
-    App.disable('x-powered-by')
-    App.use(Compress())
-    App.use(Bodyparser.json())
-    App.use('/', require('./route'))
+(async ()=>{
 
-    // handles not found problems
-    App.use((err, req, res,next)=>{
-        res.status(404).send("Not found.")
-    })
+    try {
+        await DB.authenticate()
+    } catch(e) {
+        console.log("Could not connect to DB!", e)
+    }
 
-    // App.use((req, res,next)=>{
-    //     res.status(404).send("Not found.")
-    // })
+    const App = Express()
+        App.disable('x-powered-by')
+        App.use(Compress())
+        App.use('/', require('./route'))
+
+        // handles not found problems
+        App.use((err, req, res,next)=>{
+            res.status(404).send("Not found.")
+        })
+
+        // App.use((req, res,next)=>{
+        //     res.status(404).send("Not found.")
+        // })
+
+    const Server = sHttp(App)
 
 
-App.listen(process.env.LISTEN_PORT, ()=>{
-    console.log(`Listening on :${process.env.LISTEN_PORT}`)
-})
+    // once config is done, we can put our servers online
+    Server.listen(process.env.LISTEN_PORT, ()=>{
+        console.log(`Listening on :${process.env.LISTEN_PORT}`)
+    }) 
+})();
+

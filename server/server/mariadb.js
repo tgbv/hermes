@@ -1,0 +1,23 @@
+/*
+*   handles the connection to MariaDB. Uses Sequelize as ORM.
+*/
+
+const {Sequelize} = require('sequelize')
+
+const Instance = new Sequelize({
+    dialect: "mariadb",
+    host: process.env.DB_HOST,
+    username: process.env.DB_USR,
+    password: process.env.DB_PSS,
+    database: process.env.DB_NAME,
+    dialectOptions:{
+        timezone: "+00:00"
+    },
+    define:{
+        charset:'utf8'
+    },
+    benchmark: false,
+    logging: false
+});
+
+module.exports = Instance

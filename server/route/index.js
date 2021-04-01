@@ -1,3 +1,6 @@
+const Bodyparser = require('body-parser')
+
+
 module.exports = require('express').Router()
-    .use("/", require('./site'))
-    .use("/api", require('./api'))
+    .use("/", Bodyparser.urlencoded(), require('./site'))
+    .use("/api", Bodyparser.json(), require('./api'))
