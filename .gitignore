@@ -21,3 +21,8 @@ node_modules
 
 # vscode
 *workspace
+
+# tor
+*_key
+hostname
+authorized_clients
