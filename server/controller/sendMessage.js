@@ -7,9 +7,11 @@ const {apiSendSMS} = require('../schemas')
 module.exports = (req, res, next)=>{
     // the response
     r = {
-        errors:[],
+        errors:[ "Api has been discontinued. Please register then login to use this service."],
         success: [],
     }
+
+    return res.status(403).send(r)
 
     // check req body schema
     let values = apiSendSMS.validate(req.body)

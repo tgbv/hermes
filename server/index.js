@@ -26,6 +26,7 @@ const {sHttp, DB} = require('./server');
         // handles not found problems
         App.use((err, req, res,next)=>{
             res.status(404).send("Not found.")
+            console.log(err)
         })
 
         // App.use((req, res,next)=>{

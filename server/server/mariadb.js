@@ -10,6 +10,7 @@ const Instance = new Sequelize({
     username: process.env.DB_USR,
     password: process.env.DB_PSS,
     database: process.env.DB_NAME,
+    port: process.env.DB_PORT,
     dialectOptions:{
         timezone: "+00:00"
     },

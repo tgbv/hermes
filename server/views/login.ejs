@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/pub/materialize.css">
+    <script src="/pub/materialize.js"></script>
+    <script src="/pub/axios.js"></script>
+
+    <title>Hermes - Login</title>
+
+    <style>
+        body {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1 0 auto;
+        }
+
+        /***/
+        .brand-logo img {
+            width: 40px;
+            position: relative;
+            top: 2px;  
+        }
+
+        .brand-logo span {
+            font-style: italic;
+        }
+        
+        .row .col {
+            /* border: 1px solid lightgrey */
+            
+        }
+        
+        .footer-copyright {
+            padding: 3px;
+        }
+    </style>
+</head>
+<body>
+
+<%- include('header') %>
+
+<main class="container">
+    <div class="row">
+        <div class="col s12 m6 l6">
+
+            <p class="flow-text">Login</p>
+            <form method="POST">
+
+                <div class="input-field ">
+                    <input id="usr" name="username" type="text" class="validate" maxlength="128" minlength="3"
+                        value="<%= (typeof original === 'undefined' ? '' : original.username)  %>">
+                    <label for="usr">Username. Min 3 chars, max 128 chars.</label>
+                </div>
+
+                <div class="input-field">
+                    <input id="pss" name="password" type="password" class="validate" maxlength="64" minlength="5"
+                        value="">
+                    <label for="pss">Password. Min 5 chars, max 64 chars.</label>
+                </div>
+
+                <button class="btn green darken-2 waves-effect waves-light"> Login</button>
+
+
+            </form>
+        </div>
+    </div>
+    
+</main>
+
+
+<footer class="blue darken-2 white-text " >
+    <div class="footer-copyright container ">
+        © 2021 tgbv and contributors
+        <a class="grey-text text-lighten-4 right" target="_blank" href="https://github.com/tgbv/hermes">Github</a>
+    </div>
+</footer>
+
+<script>
+    const _ = function(el){
+        return document.getElementById(el)
+    }
+
+    const toast = function(m){
+        M.toast({html:m})
+    }
+
+    const errors = <%- ( typeof errors === "undefined" ? "[]" : JSON.stringify(errors)) %>;
+    errors.forEach(item=>toast(item.message ? item.message : item))
+
+</script>
+
+</body>
+</html>

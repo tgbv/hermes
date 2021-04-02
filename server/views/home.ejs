@@ -9,7 +9,7 @@
     <script src="/pub/materialize.js"></script>
     <script src="/pub/axios.js"></script>
 
-    <title>Hermes</title>
+    <title>Hermes project</title>
 
     <style>
         body {
@@ -22,16 +22,6 @@
             flex: 1 0 auto;
         }
 
-        /***/
-        .brand-logo img {
-            width: 40px;
-            position: relative;
-            top: 2px;  
-        }
-
-        .brand-logo span {
-            font-style: italic;
-        }
         
         .row .col {
             /* border: 1px solid lightgrey */
@@ -44,17 +34,7 @@
     </style>
 </head>
 <body>
-
-<header>
-    <nav class="blue darken-2">
-        <div class="nav-wrapper container">
-            <a href="/" class="brand-logo">
-                <img src="/pub/logo.png" title="Homepage">
-                <span>Hermes</span>
-            </a>
-        </div>
-    </nav>
-</header>
+<%- include('header') %>
 
 <main class="container">
     <h4>Send anonymous SMS over TOR!</h4>
@@ -86,7 +66,7 @@
         <div class="col s12 m6 l6">
 
             <p class="flow-text">Sign up and browse the API for free.</p>
-            <form action="/register" method="POST">
+            <form action="/auth/register" method="POST">
 
                 <div class="input-field ">
                     <input id="usr" name="username" type="text" class="validate" maxlength="128" minlength="3"

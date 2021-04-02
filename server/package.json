@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "aes256": "^1.1.0",
     "argon2": "^0.27.2",
     "axios": "^0.21.1",
     "body-parser": "^1.19.0",
@@ -17,6 +18,8 @@
     "dotenv": "^8.2.0",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
+    "express-mysql-session": "^2.1.5",
+    "express-session": "^1.17.1",
     "joi": "^17.4.0",
     "joi-phone-number": "^5.0.1",
     "mariadb": "^2.5.3",

@@ -21,7 +21,7 @@ module.exports = DB.define('Users', {
         type: DataTypes.STRING
     },
 
-    apikey: {
+    apikeysalt: {
         type: DataTypes.STRING,
         allowNull: true,
     },
