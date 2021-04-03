@@ -26,3 +26,6 @@ node_modules
 *_key
 hostname
 authorized_clients
+
+# my 
+private
