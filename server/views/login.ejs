@@ -55,19 +55,30 @@
             <form method="POST">
 
                 <div class="input-field ">
-                    <input id="usr" name="username" type="text" class="validate" maxlength="128" minlength="3"
+                    <input id="usr" name="username" type="text" class="validate" maxlength="128" minlength="3" required
                         value="<%= (typeof original === 'undefined' ? '' : original.username)  %>">
                     <label for="usr">Username. Min 3 chars, max 128 chars.</label>
                 </div>
 
                 <div class="input-field">
-                    <input id="pss" name="password" type="password" class="validate" maxlength="64" minlength="5"
+                    <input id="pss" name="password" type="password" class="validate" maxlength="64" minlength="5" required
                         value="">
                     <label for="pss">Password. Min 5 chars, max 64 chars.</label>
                 </div>
 
-                <button class="btn green darken-2 waves-effect waves-light"> Login</button>
+                <div class="row">
+                    <div class="col s6">
+                        <%- captcha_log %>
+                    </div>
+                    <div class="col s6">
+                        <div class="input-field">
+                            <input id="captcha_log" name="captcha_log" type="text" maxlength="5" minlength="5" required>
+                            <label for="captcha_log">Captcha image. CASE-SENSITIVE!</label>
+                        </div>
 
+                        <button class="btn green darken-2 waves-effect waves-light"> Login</button>
+                    </div>
+                </div>
 
             </form>
         </div>
@@ -92,8 +103,7 @@
         M.toast({html:m})
     }
 
-    const errors = <%- ( typeof errors === "undefined" ? "[]" : JSON.stringify(errors)) %>;
-    errors.forEach(item=>toast(item.message ? item.message : item))
+    <%- include('global/errors') %>
 
 </script>
 

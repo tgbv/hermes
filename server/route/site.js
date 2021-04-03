@@ -1,7 +1,4 @@
-const {t} = require('../util')
-const Fs = require('fs')
-const Path = require('path')
-
+const {SiteController} = require('../controller')
 const {isLoggedIn} = require('../middleware')
 
 module.exports = require('express').Router()
@@ -9,9 +6,7 @@ module.exports = require('express').Router()
     /*
     *   for homepage
     */
-    .get('/', isLoggedIn, (req, res, next)=>{
-        res.send(t('home'))
-    })
+    .get('/', isLoggedIn, SiteController.showHomepage)
     
 
 

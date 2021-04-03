@@ -1,8 +1,13 @@
 const {t, redir, ApiKey} = require('../util')
 const { UsersModel} = require('../model')
-const Argon2 = require('argon2')
 const {ChangePasswordSchema} = require('../schemas')
 
+const Argon2 = require('argon2')
+const Captcha = require('svg-captcha')
+
+/*
+*   reusable method for current controllers set
+*/
 const getUser = async (id)=>{
     return await UsersModel.findOne({
         where: {id}
@@ -15,10 +20,10 @@ module.exports = {
     */
     async showFront(req, res){
         let User = await getUser(req.session.user_id)
-
+        
         res.send( t('dash', {
             User: User,
-            apiKey: ApiKey.generate(User)
+            apiKey: ApiKey.generate(User),
         }) )
     },
 

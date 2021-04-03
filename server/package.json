@@ -23,7 +23,8 @@
     "joi": "^17.4.0",
     "joi-phone-number": "^5.0.1",
     "mariadb": "^2.5.3",
-    "sequelize": "^6.6.2"
+    "sequelize": "^6.6.2",
+    "svg-captcha": "^1.4.0"
   },
   "devDependencies": {
     "eslint": "^7.23.0"

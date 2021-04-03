@@ -1,25 +1,33 @@
 const {AuthSchema} = require('../schemas')
-const {t, redir, ApiKey} = require('../util')
+const {t, redir, ApiKey, makeCaptcha} = require('../util')
 const {UsersModel} = require('../model')
 
 const Argon2 = require('argon2')
+const Captcha = require('svg-captcha')
 
 module.exports = {
     loginForm(req, res ){
-        res.send(t('login'))
+        let C = makeCaptcha()
+
+        req.session.captcha_log = C.text
+
+        res.send(t('login', {
+            captcha_log: C.svg
+        }))
     },
 
     async login(req, res){
         // validate request body
-        let values = AuthSchema.Register.validate(req.body)
+        let values = AuthSchema.Login.validate(req.body)
         if(values.error){
-            return res.status(422).send(t('login', {
-                errors: values.error.details,
-                original: values.error._original,
-            }))
+            return redir(res, "/auth/login?errors="+JSON.stringify(values.error.details))
         }
 
-        const {username, password} = req.body
+        const {username, password, captcha_log} = req.body
+
+        // check if captcha is good
+        if(req.session.captcha_log !== captcha_log)
+            return redir(res, "/auth/login?errors="+JSON.stringify([encodeURIComponent("Invalid recaptcha. Please retry. Note it's &nbsp;<b>case-sensitive</b>.")]))
 
         // get user
         let User = await UsersModel.findOne({
@@ -32,10 +40,7 @@ module.exports = {
             redir(res, "/")
         }
         else {
-            res.status(422).send(t('login',{
-                errors:['Invelid username or password.'],
-                original: req.body,
-            }))
+            return redir(res, "/auth/login?errors="+JSON.stringify([encodeURIComponent("Invalid username or password.")]))
         }
     },
 
@@ -55,13 +60,14 @@ module.exports = {
         // validate request body
         let values = AuthSchema.Register.validate(req.body)
         if(values.error){
-            return res.status(422).send(t('home', {
-                errors: values.error.details,
-                original: values.error._original,
-            }))
+            return redir( res, "/?errors="+JSON.stringify(values.error.details) )
         }
         
-        const {username, password} = req.body
+        const {username, password, captcha_reg} = req.body
+
+        // check if captcha is good
+        if(req.session.captcha_reg !== captcha_reg)
+            return redir(res, "/?errors="+JSON.stringify([encodeURIComponent("Invalid recaptcha. Please retry. Note it's &nbsp;<b>case-sensitive</b>.")]))
 
         // check if username is taken
         let User = await UsersModel.findOne({
@@ -69,10 +75,7 @@ module.exports = {
         })
 
         if(User){
-            return res.status(422).send(t('home', {
-                errors: ["Username has already been taken!"],
-                original: req.body,
-            }))
+            return redir(res, "/?errors="+JSON.stringify([encodeURIComponent("Username has already been taken.")]))
         } else {
 
             User = await UsersModel.create({

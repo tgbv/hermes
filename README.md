@@ -11,16 +11,16 @@ As messaging engine Hermes uses [Telnyx](https://telnyx.com), so note your messa
 
 ### Features
 
-- [ ] Publicly send demo message
-- [ ] Publicly send message with recaptcha
+- [ ] Publicly send demo message with recaptcha
 - [x] Create account
 - [x] Login to account
 - [x] API key regeneration
 - [x] Change password in dashboard
 - [x] API documentation
-- [ ] Implement recaptcha on account creation/authentication
+- [x] Implement recaptcha on account creation/authentication
 - [ ] Validate created accounts via E-mail/SMS 
 - [x] Send messages via API using tokens from created accounts
+- [ ] Implement throttles for API
 
 ### Contributing/Engineering
 

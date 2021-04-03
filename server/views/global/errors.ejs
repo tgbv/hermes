@@ -1,0 +1,7 @@
+const errors = <%- ( typeof errors === "undefined" ? "[]" : JSON.stringify(errors)) %>;
+errors.forEach(item=>toast(item.message ? item.message : item))
+
+const urlParams = new URLSearchParams(window.location.search);
+const errorsGET = JSON.parse(urlParams.get('errors'))
+if(errorsGET)
+errorsGET.forEach(item=>toast(item.message ? item.message : item))

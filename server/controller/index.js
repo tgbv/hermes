@@ -4,6 +4,8 @@ module.exports ={
     AuthController: require('./Auth'),
     DashController: require('./Dash'),
     ApiController: require('./Api'),
+    SiteController: require('./Site'),
 
+    
     
 }
