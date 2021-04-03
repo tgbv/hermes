@@ -17,7 +17,7 @@ module.exports = require('express').Router()
     /*
     *   dash related
     */
-    .use('/dash', session, mustBeLoggedIn, require('./dash'))
+    .use('/dash', Bodyparser.urlencoded(), session, mustBeLoggedIn, require('./dash'))
 
     /*
     *   storage related

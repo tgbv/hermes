@@ -6,4 +6,5 @@ module.exports = require('express').Router()
     .get('/', DashController.showFront)
     .get('/logout', AuthController.logout)
     .get('/regenerate-api', DashController.regenerateAPI)
+    .post('/change-password', DashController.changePassword)
     

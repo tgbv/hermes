@@ -36,6 +36,10 @@
             background: #efefef;
             
         }
+
+        .demo-code {
+            background: #efefef;
+        }
     </style>
 </head>
 <body>
@@ -69,28 +73,7 @@
 <main class="">
 
 <div class="row">
-    <!-- <div class="col s12 m6 l6">
-        <p class="flow-text">Demo SMS. Requires javascript.</p>
-
-        <div class="input-field ">
-            <input id="from" type="text" class="validate" maxlength="11">
-            <label for="from">From (can be anything, non numeric, max 11 chars)</label>
-        </div>
-
-        <div class="input-field">
-            <input id="to" type="text" class="validate" maxlength="64">
-            <label for="to">To. Receipt phone number (in international format)</label>
-        </div>
-
-        <div class="input-field">
-            <textarea id="text" class="materialize-textarea" maxlength="160"></textarea>
-            <label for="text">Text message. GSM-7 encoded. Max 160 chars. Multines supported.</label>
-        </div>
-        
-        <div class="btn green darken-2 waves-effect waves-light" onclick="sendMessage()">Send</div>
-    </div> -->
-
-    <div class="col s12 m6 l6">
+    <div class="col s12 m7">
         <p class="flow-text">Account information</p>
 
         <table >
@@ -107,7 +90,7 @@
                 <tr>
                     <td>Password:</td>
                     <td colspan="2">
-                        <!-- <div class="btn green">Change</div> -->
+                        <div class="btn green modal-trigger" data-target="changePasswordModal">Change</div>
                     </td>
                 </tr>                
             </tbody>
@@ -120,14 +103,53 @@
             <tbody>
                 <tr>
                     <td>API key:</td>
-                    <td><code><%- apiKey %></code></td>
+                    <td style="word-wrap: anywhere;"><code ><%- apiKey %></code></td>
                     <td><a href="/dash/regenerate-api">Regenerate</a></td>
                 </tr>                
             </tbody>
          </table>
     </div>
 
+    <div class="col s12 m4 ">
+        <p class="flow-text">Send demo SMS.</p>
+
+        <div class="input-field ">
+            <input id="from" type="text" class="validate" maxlength="11">
+            <label for="from">From (can be anything, non numeric, max 11 chars)</label>
+        </div>
+
+        <div class="input-field">
+            <input id="to" type="text" class="validate" maxlength="64">
+            <label for="to">To. Receipt phone number (in international format)</label>
+        </div>
+
+        <div class="input-field">
+            <textarea id="text" class="materialize-textarea" maxlength="160"></textarea>
+            <label for="text">Text message. GSM-7 encoded. Max 160 chars. Multines supported.</label>
+        </div>
+        
+        <center><div class="btn green darken-2 waves-effect waves-light" onclick="sendMessage()">Send</div></center>
+    </div>
 </div>
+
+<div class="row">
+    <div class="col s12 ">
+        <p class="flow-text">API demo with cURL</p>
+
+<div class="demo-code" style="word-wrap: anywhere;">
+    
+<code >curl -X POST \<br>
+    &nbsp;&nbsp;--header "Content-Type: application/json" \<br>
+    &nbsp;&nbsp;--data '{<br>
+        &nbsp;&nbsp; &nbsp;&nbsp;"from": "User",<br>
+        &nbsp;&nbsp; &nbsp;&nbsp;"to": "+13115552367",<br>
+        &nbsp;&nbsp; &nbsp;&nbsp;"text": "Hello, world!"<br>
+        &nbsp;&nbsp; }' \<br>
+        &nbsp;&nbsp;<%- process.env.APP_URL %>/api/send/<%- apiKey %></code>
+    </div>
+</div>
+
+<%- include('dash/changePasswordModal') %>
     
 </main>
 
@@ -146,6 +168,11 @@
     const errors = <%- ( typeof errors === "undefined" ? "[]" : JSON.stringify(errors)) %>;
     errors.forEach(item=>toast(item.message ? item.message : item))
 
+    const urlParams = new URLSearchParams(window.location.search);
+    const errorsGET = JSON.parse(urlParams.get('errors'))
+    if(errorsGET)
+    errorsGET.forEach(item=>toast(item.message ? item.message : item))
+
     const clearFields = function(){
         _('from').value = ''
         _('to').value = ''
@@ -161,7 +188,7 @@
         let to = _('to').value
         let text = _('text').value
 
-        axios.post('/api/send', {
+        axios.post('/api/send/<%- apiKey %>', {
             from, to, text
         })
         .then(res=>{
