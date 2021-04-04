@@ -46,24 +46,40 @@
             demo message form
         -->
         <div class="col s12 m6 l6">
-            <p class="flow-text">Demo. Requires javascript.</p>
+            <p class="flow-text">Send demo message</p>
+
+            <form method="POST" action="/send-demo">
 
             <div class="input-field ">
-                <input id="from" type="text" class="validate" maxlength="11">
+                <input id="from" name="from" type="text" class="validate" maxlength="11">
                 <label for="from">From (can be anything, non numeric, max 11 chars)</label>
             </div>
 
             <div class="input-field">
-                <input id="to" type="text" class="validate" maxlength="64">
+                <input id="to" name="to" type="text" class="validate" maxlength="64">
                 <label for="to">To. Receipt phone number (in international format)</label>
             </div>
 
             <div class="input-field">
-                <textarea id="text" class="materialize-textarea" maxlength="160"></textarea>
+                <textarea id="text" name="text" class="materialize-textarea" maxlength="160"></textarea>
                 <label for="text">Text message. GSM-7 encoded. Max 160 chars. Multines supported.</label>
             </div>
-            
-            <div class="btn green darken-2 waves-effect waves-light" onclick="sendMessage()">Send</div>
+
+            <div class="row">
+                <div class="col s6">
+                    <%- captcha_demo %>
+                </div>
+                <div class="col s6">
+                    <div class="input-field">
+                        <input id="captcha_demo" name="captcha_demo" type="text" maxlength="5" minlength="5" required>
+                        <label for="captcha_demo">Captcha image. CASE-SENSITIVE!</label>
+                    </div>
+
+                    <button class="btn green darken-2 waves-effect waves-light">Send</button>
+                </div>
+            </div>
+
+            </form>
 
         </div>
 
@@ -119,39 +135,6 @@
 
     <%- include('global/errors') %>
 
-    const clearFields = function(){
-        _('from').value = ''
-        _('to').value = ''
-        _('text').value = ''
-
-        M.textareaAutoResize(_('text'))
-    }
-
-    const sendMessage = function(){
-        toast("sending message...")
-
-        let from = _('from').value
-        let to = _('to').value
-        let text = _('text').value
-
-        axios.post('/api/send', {
-            from, to, text
-        })
-        .then(res=>{
-            toast("message sent!")
-            clearFields()
-        })
-        .catch(e=>{
-            let r = e.response
-
-            if(r.status === 422)
-                r.data.errors.forEach(item=>toast(item.message ? item.message : item))
-            else {
-                toast("Internal error occurred. Try again later")
-                console.log(r.data)
-            }
-        })
-    }
 </script>
 
 </body>

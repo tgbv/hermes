@@ -11,6 +11,7 @@ module.exports = DB.define('Users', {
     id: {
         type: DataTypes.MEDIUMINT,
         primaryKey: true,
+        autoIncrement: true,
     },
 
     username: {

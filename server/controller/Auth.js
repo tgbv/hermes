@@ -1,6 +1,6 @@
 const {AuthSchema} = require('../schemas')
 const {t, redir, ApiKey, makeCaptcha} = require('../util')
-const {UsersModel} = require('../model')
+const {UsersModel, ApiThrottlesModel} = require('../model')
 
 const Argon2 = require('argon2')
 const Captcha = require('svg-captcha')
@@ -16,7 +16,12 @@ module.exports = {
         }))
     },
 
+    /*
+    *   login user
+    */
     async login(req, res){
+        try {
+
         // validate request body
         let values = AuthSchema.Login.validate(req.body)
         if(values.error){
@@ -42,6 +47,11 @@ module.exports = {
         else {
             return redir(res, "/auth/login?errors="+JSON.stringify([encodeURIComponent("Invalid username or password.")]))
         }
+
+
+        }catch(e){
+            return redir(res, `/auth/login?errors=["Server error occurred."]`)
+        }
     },
 
     async logout(req, res, next){
@@ -57,6 +67,8 @@ module.exports = {
     *   register user
     */
     async register (req, res){
+        try {
+
         // validate request body
         let values = AuthSchema.Register.validate(req.body)
         if(values.error){
@@ -84,9 +96,16 @@ module.exports = {
                 apikeysalt: ApiKey.makeSalt(),
             })
 
-            res.send(t('login', {
-                errors: ["User created with success! You may now login."]
-            }))
+            await ApiThrottlesModel.create({
+                user_id: User.id,
+            })
+
+            return redir(res, "/auth/login?errors="+JSON.stringify([encodeURIComponent("User created with success! You may now login.")]))
+            
+        }
+
+        }catch(e){
+            return redir(res, `/?errors=["Server error occurred."]`)
         }
     }
 }

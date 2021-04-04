@@ -8,6 +8,6 @@ module.exports = require('express').Router()
     */
     .get('/', isLoggedIn, SiteController.showHomepage)
     
-
+    .post('/send-demo', SiteController.sendDemo)
 
     

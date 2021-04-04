@@ -19,7 +19,7 @@ module.exports = async (req, res, next)=>{
             })
         }
     } catch(e) {
-        console.log(e)
+       // console.log(e)
         return res.status(403).send({
             errors:[ "bad token"]
         })

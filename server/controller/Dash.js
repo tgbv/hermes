@@ -19,12 +19,16 @@ module.exports = {
     *   shows the dashboard
     */
     async showFront(req, res){
-        let User = await getUser(req.session.user_id)
-        
-        res.send( t('dash', {
-            User: User,
-            apiKey: ApiKey.generate(User),
-        }) )
+        try {
+            let User = await getUser(req.session.user_id)
+            
+            res.send( t('dash', {
+                User: User,
+                apiKey: ApiKey.generate(User),
+            }) )
+        } catch(e){
+            redir(res, `/dash?errors=["Server error occurred!"]`)
+        }
     },
 
 
@@ -32,35 +36,43 @@ module.exports = {
     *   regenerates the API key
     */
     async regenerateAPI(req, res){
-        let User = await getUser(req.session.user_id)
+        try {
+            let User = await getUser(req.session.user_id)
 
-        await User.update({
-            apikeysalt: ApiKey.makeSalt()
-        })
+            await User.update({
+                apikeysalt: ApiKey.makeSalt()
+            })
 
-        redir(res, "/dash")
+            redir(res, "/dash")
+        } catch(e){
+            redir(res, `/dash?errors=["Server error occurred!"]`)
+        }
     },
 
     /*
     *   changes account password
     */
    async changePassword(req, res){
-       // verifies req body
-        let values = ChangePasswordSchema.validate(req.body)
-        if( values.error) return redir(res, '/dash?errors='+JSON.stringify(values.error.details))
+       try{
+            // verifies req body
+            let values = ChangePasswordSchema.validate(req.body)
+            if( values.error) return redir(res, '/dash?errors='+JSON.stringify(values.error.details))
 
-       let User = await getUser(req.session.user_id)
+            let User = await getUser(req.session.user_id)
 
-       if(await Argon2.verify(User.password, req.body.old_password))
-       {
-           await User.update({
-               password: await Argon2.hash(req.body.new_password)
-           })
+            if(await Argon2.verify(User.password, req.body.old_password))
+            {
+                await User.update({
+                    password: await Argon2.hash(req.body.new_password)
+                })
 
-           redir(res, '/dash?errors=["Password changed!"]')
+                redir(res, '/dash?errors=["Password changed!"]')
+            }
+            else 
+                redir(res, '/dash?errors=["Old password is incorrect"]')   
+
+       }catch(e){
+           redir(res, '/dash?errors=["Server error occurred"]')
        }
-       else 
-            redir(res, '/dash?errors=["Old password is incorrect"]')
-
    }
 }

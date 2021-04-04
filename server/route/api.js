@@ -1,5 +1,6 @@
 const {sendMessage, ApiController} = require('../controller')
-const { checkApiToken} = require('../middleware')
+const { checkApiToken, checkApiThrottle, validateSchema} = require('../middleware')
+const { apiSendSMS } = require('../schemas')
 
 module.exports = require('express').Router()
 
@@ -9,4 +10,4 @@ module.exports = require('express').Router()
     .post("/send", sendMessage)
 
     
-    .post('/send/:key([a-z0-9]+)', checkApiToken, ApiController.sendByToken)
+    .post('/send/:key([a-z0-9]+)', validateSchema(apiSendSMS), checkApiToken, checkApiThrottle, ApiController.sendByToken)
