@@ -4,6 +4,7 @@ module.exports = {
     session: require('./session'),
     redir: require('./redir'),
     makeCaptcha: require('./makeCaptcha'),
+    getDynEnv: require('./getDynEnv'),
 
     ApiKey: require('./ApiKey'),
 

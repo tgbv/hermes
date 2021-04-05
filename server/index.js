@@ -5,6 +5,7 @@ const Express = require('express')
 const Dotenv = require('dotenv'); Dotenv.config()
 const Compress = require('compression')
 const {sHttp, DB} = require('./server');
+const {serverDown} = require('./middleware');
 
 
 /*
@@ -20,6 +21,7 @@ const {sHttp, DB} = require('./server');
 
     const App = Express()
         App.disable('x-powered-by')
+        App.use(serverDown)
         App.use(Compress())
         App.use('/', require('./route'))
 
