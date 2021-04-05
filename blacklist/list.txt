@@ -1,0 +1,24 @@
+# this is the blacklist (UTF-8 encoded)
+# add here any word or phrase you believe to be abusive, one by line; eg: "facebook"
+# empty lines and those starting with hashtags will be ommited
+# regex expressions are supported; eg: "(rape|kill|murder) you"
+
+# list of well known companies of which customers are targeted by scammers
+google
+gmail
+facebook
+instagram
+snapchat
+whatsapp
+telegram
+binance
+coinbase
+
+# list of potential abusive phrases used in blackmail/threatening messages
+(rape|kill|murder|die)
+blood
+(bomb|tnt|c4)
+detonat(e|ing)
+stab
+
+
