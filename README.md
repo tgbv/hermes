@@ -18,11 +18,13 @@ As messaging engine Hermes uses [Telnyx](https://telnyx.com), so note your messa
 - [x] Change password in dashboard
 - [x] API documentation
 - [x] Implement recaptcha on account creation/authentication
-- [ ] Validate created accounts via E-mail/SMS 
+- [ ] Validate created accounts via E-mail/SMS <-- ?
 - [x] Send messages via API using tokens from created accounts
 - [x] Implement throttles for API
 - [ ] Add filter list for wording to prevent abuse
 - [ ] Add throttling information in dashboard
+
+- [ ] Fix "invalid messaging source number"
 
 ### Contributing/Engineering
 
