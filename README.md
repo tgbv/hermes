@@ -13,16 +13,20 @@ As messaging engine Hermes uses [Telnyx](https://telnyx.com), so note your messa
 
 - [x] Publicly send demo message with recaptcha
 - [x] Create account
-- [x] Login to account
-- [x] API key regeneration
-- [x] Change password in dashboard
-- [x] API documentation
 - [x] Implement recaptcha on account creation/authentication
 - [ ] Validate created accounts via E-mail/SMS <-- ?
+- [x] Login to account
+- [x] Change password in dashboard
+- [ ] Better GUI structured in dashboard
 - [x] Send messages via API using tokens from created accounts
+- [x] API key regeneration
+- [ ] Comprehensive API documentation
 - [x] Implement throttles for API
 - [x] Add filter list for wording to prevent abuse <-- see /blacklist/list.txt
 - [ ] Add throttling information in dashboard
+- [ ] Add global site stats
+- [ ] Add TOS and privacy statements
+- [ ] Implement better GUI for mobile
 
 -------------
 
