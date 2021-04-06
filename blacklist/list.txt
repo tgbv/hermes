@@ -11,8 +11,14 @@ instagram
 snapchat
 whatsapp
 telegram
+microsoft
+windows
+
 binance
 coinbase
+
+# list with words used frequently by scammers
+covid
 
 # list of potential abusive phrases used in blackmail/threatening messages
 (rape|kill|murder|die)

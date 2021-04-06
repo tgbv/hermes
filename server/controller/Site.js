@@ -1,4 +1,4 @@
-const {t, makeCaptcha, redir} = require('../util')
+const {t, makeCaptcha, redir, messageIsBlacklisted} = require('../util')
 const {HomeSendSMSSchema} = require('../schemas')
 
 const axios = require('axios')
@@ -34,6 +34,11 @@ module.exports = {
             // check captcha
             if(req.session.captcha_demo !== captcha_demo)
                 return redir(res, '/?errors=["Captcha is incorrect! Please retry."]')
+
+            // check if message is blacklisted
+            if (await messageIsBlacklisted(req.body)){
+                return redir(res, '/?errors=["Message contains blacklisted words"]')
+            }
 
             // send sms
             // pass request to the micromodule
