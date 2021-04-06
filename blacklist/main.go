@@ -77,24 +77,26 @@ func scanRemoteList() {
 // if match is found, then bool = false
 func checkData(d *map[string]interface{}) bool {
 
+	from := strings.ToLower(strings.ReplaceAll((*d)["from"].(string), "\n", ""))
+	text := strings.ToLower(strings.ReplaceAll((*d)["text"].(string), "\n", ""))
+
 	mux.Lock()
 
 	for _, v := range phrases {
-
-		from := strings.ToLower(strings.ReplaceAll((*d)["from"].(string), "\n", ""))
-		text := strings.ToLower(strings.ReplaceAll((*d)["text"].(string), "\n", ""))
 
 		// check "from" field
 		b, err := regexp.MatchString(`.*`+v+`.*`, from)
 		if err == nil {
 
 			if b {
+				mux.Unlock()
 				return false
 			} else {
 
 				// check body text
 				b, err = regexp.MatchString(`.*`+v+`.*`, text)
 				if err == nil && b {
+					mux.Unlock()
 					return false
 				} else {
 					continue
@@ -106,7 +108,6 @@ func checkData(d *map[string]interface{}) bool {
 	}
 
 	mux.Unlock()
-
 	return true
 }
 
