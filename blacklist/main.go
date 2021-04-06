@@ -81,8 +81,8 @@ func checkData(d *map[string]interface{}) bool {
 
 	for _, v := range phrases {
 
-		from := strings.ReplaceAll((*d)["from"].(string), "\n", "")
-		text := strings.ReplaceAll((*d)["text"].(string), "\n", "")
+		from := strings.ToLower(strings.ReplaceAll((*d)["from"].(string), "\n", ""))
+		text := strings.ToLower(strings.ReplaceAll((*d)["text"].(string), "\n", ""))
 
 		// check "from" field
 		b, err := regexp.MatchString(`.*`+v+`.*`, from)
