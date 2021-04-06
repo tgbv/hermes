@@ -32,6 +32,7 @@ As messaging engine Hermes uses [Telnyx](https://telnyx.com), so note your messa
 -------------
 
 - [ ] Fix "invalid messaging source number"
+- [ ] Fix "from" requirements
 
 ### Contributing/Engineering
 
