@@ -77,6 +77,8 @@ func scanRemoteList() {
 // if match is found, then bool = false
 func checkData(d *map[string]interface{}) bool {
 
+	mux.Lock()
+
 	for _, v := range phrases {
 
 		from := strings.ReplaceAll((*d)["from"].(string), "\n", "")
@@ -102,6 +104,8 @@ func checkData(d *map[string]interface{}) bool {
 		}
 
 	}
+
+	mux.Unlock()
 
 	return true
 }
