@@ -17,7 +17,7 @@ As messaging engine Hermes uses [Telnyx](https://telnyx.com), so note your messa
 - [ ] Validate created accounts via E-mail/SMS <-- ?
 - [x] Login to account
 - [x] Change password in dashboard
-- [ ] Better GUI structured in dashboard
+- [x] Better GUI structured in dashboard
 - [x] Send messages via API using tokens from created accounts
 - [x] API key regeneration
 - [ ] Comprehensive API documentation
@@ -27,7 +27,7 @@ As messaging engine Hermes uses [Telnyx](https://telnyx.com), so note your messa
 - [ ] Add global site stats
 - [ ] Add TOS and privacy statements
 - [ ] Add FAQ
-- [ ] Implement better GUI for mobile
+- [x] Implement better GUI for mobile
 
 -------------
 

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./global/head') %>
+    <%- include('./dash/head') %>
+    <title>Hermes project</title>
+
+
+</head>
+<body>
+
+    <%- include('./dash/header') %>
+    <%- include('./dash/sidenav') %>
+
+<main class="">
+
+<div class="row">
+    <div class="col s12 ">
+        <h3><-- navigate using the sidenav</h3>
+    </div>
+</div>
+
+
+    
+</main>
+
+
+<%- include('./footer') %>
+
+<script>
+    const _ = function(el){
+        return document.getElementById(el)
+    }
+
+    const toast = function(m){
+        M.toast({html:m})
+    }
+
+    const errors = <%- ( typeof errors === "undefined" ? "[]" : JSON.stringify(errors)) %>;
+    errors.forEach(item=>toast(item.message ? item.message : item))
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const errorsGET = JSON.parse(urlParams.get('errors'))
+    if(errorsGET)
+    errorsGET.forEach(item=>toast(item.message ? item.message : item))
+
+</script>
+
+</body>
+</html>

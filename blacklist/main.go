@@ -70,7 +70,7 @@ func scanRemoteList() {
 	mux.Unlock()
 
 	time.Sleep(time.Duration(SCAN_RATE) * time.Second)
-	scanRemoteList()
+	go scanRemoteList()
 }
 
 // checks data (from/to) against phrases list

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./global/head') %>
+    <%- include('./dash/head') %>
+    
+    <title>Hermes - Account information</title>
+</head>
+<body>
+    <%- include('./dash/header') %>
+    <%- include('./dash/sidenav') %>
+<main>
+    <div class="row">
+        <div class="col s12">
+            <p class="flow-text">Account information</p>
+    
+            <table >
+                <tbody>
+                    <tr>
+                        <td>Username:</td>
+                        <td><code><%- User.username %></code></td>
+                        <td>
+                            <!-- <div class="btn green">Change</div> -->
+                        </td>
+                    </tr>                
+                </tbody>
+                <tbody>
+                    <tr>
+                        <td>Password:</td>
+                        <td colspan="2">
+                            <div class="btn green modal-trigger" data-target="changePasswordModal">Change</div>
+                        </td>
+                    </tr>                
+                </tbody>
+                <tbody>
+                    <tr>
+                        <td>Created:</td>
+                        <td colspan="2"><code><%- User.created_at %></code></td>
+                    </tr>                
+                </tbody>
+                <tbody>
+                    <tr>
+                        <td>API key:</td>
+                        <td style="word-wrap: anywhere;"><code ><%- apiKey %></code></td>
+                        <td><a href="/dash/regenerate-api">Regenerate</a></td>
+                    </tr>                
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <%- include('./dash/accountInfo/changePasswordModal') %>
+</main>
+<%- include('./footer') %>
+
+<script>
+    <%- include('./global/util') %>
+    <%- include('./global/errors') %>
+
+</script>
+
+</body>
+</html>

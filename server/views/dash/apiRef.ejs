@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./global/head') %>
+    <%- include('./dash/head') %>
+    
+    <title>Hermes - API reference</title>
+</head>
+<body>
+    <%- include('./dash/header') %>
+    <%- include('./dash/sidenav') %>
+<main>
+    <div class="row">
+        <div class="col s12">
+            <p class="flow-text">API demo with cURL</p>
+
+            <div class="demo-code" style="word-wrap: anywhere;">
+                
+            <code >curl -X POST \<br>
+                &nbsp;&nbsp;--header "Content-Type: application/json" \<br>
+                &nbsp;&nbsp;--data '{<br>
+                    &nbsp;&nbsp; &nbsp;&nbsp;"from": "User",<br>
+                    &nbsp;&nbsp; &nbsp;&nbsp;"to": "+13115552367",<br>
+                    &nbsp;&nbsp; &nbsp;&nbsp;"text": "Hello, world!"<br>
+                    &nbsp;&nbsp; }' \<br>
+                    &nbsp;&nbsp;<%- process.env.APP_URL %>/api/send/<%- apiKey %></code>
+        </div>
+    </div>
+
+</main>
+<%- include('./footer') %>
+
+<script>
+    <%- include('./global/util') %>
+    <%- include('./global/errors') %>
+
+</script>
+
+</body>
+</html>

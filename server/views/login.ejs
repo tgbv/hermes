@@ -1,51 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" href="/pub/materialize.css">
-    <script src="/pub/materialize.js"></script>
-    <!-- <script src="/pub/axios.js"></script> -->
-
+    <%- include('global/head') %>
     <title>Hermes - Login</title>
-
-    <style>
-        body {
-            display: flex;
-            min-height: 100vh;
-            flex-direction: column;
-        }
-
-        main {
-            flex: 1 0 auto;
-        }
-
-        /***/
-        .brand-logo img {
-            width: 40px;
-            position: relative;
-            top: 2px;  
-        }
-
-        .brand-logo span {
-            font-style: italic;
-        }
-        
-        .row .col {
-            /* border: 1px solid lightgrey */
-            
-        }
-        
-        .footer-copyright {
-            padding: 3px;
-        }
-    </style>
 </head>
 <body>
 
 <%- include('header') %>
+<%- include('sidenav') %>
 
 <main class="container">
     <div class="row">

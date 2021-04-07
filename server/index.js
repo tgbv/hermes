@@ -7,6 +7,8 @@ const Compress = require('compression')
 const {sHttp, DB} = require('./server');
 const {serverDown} = require('./middleware');
 
+const Path = require('path');
+
 
 /*
 *   all config
@@ -21,6 +23,7 @@ const {serverDown} = require('./middleware');
 
     const App = Express()
         App.disable('x-powered-by')
+        App.disable('etag')
         App.use(serverDown)
         App.use(Compress())
         App.use('/', require('./route'))

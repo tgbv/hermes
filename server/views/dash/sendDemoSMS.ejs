@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./global/head') %>
+    <%- include('./dash/head') %>
+    
+    <title>Hermes - Send demo SMS</title>
+</head>
+<body>
+    <%- include('./dash/header') %>
+    <%- include('./dash/sidenav') %>
+<main>
+    <div class="row">
+        <div class="col s12">
+            <p class="flow-text">Send demo SMS.</p>
+
+            <div class="input-field ">
+                <input id="from" type="text" class="validate" maxlength="11">
+                <label for="from">From (can be anything, non numeric, max 11 chars)</label>
+            </div>
+    
+            <div class="input-field">
+                <input id="to" type="text" class="validate" maxlength="64">
+                <label for="to">To. Receipt phone number (in international format)</label>
+            </div>
+    
+            <div class="input-field">
+                <textarea id="text" class="materialize-textarea" maxlength="160"></textarea>
+                <label for="text">Text message. GSM-7 encoded. Max 160 chars. Multines supported.</label>
+            </div>
+            
+            <center><div class="btn green darken-2 waves-effect waves-light" onclick="sendMessage()">Send</div></center>
+        </div>
+    </div>
+
+</main>
+<%- include('./footer') %>
+
+<script>
+    <%- include('./global/util') %>
+    <%- include('./global/errors') %>
+
+    const clearFields = function(){
+        _('from').value = ''
+        _('to').value = ''
+        _('text').value = ''
+
+        M.textareaAutoResize(_('text'))
+    }
+
+    const sendMessage = function(){
+        toast("sending message...")
+
+        let from = _('from').value
+        let to = _('to').value
+        let text = _('text').value
+
+        axios.post('/api/send/<%- apiKey %>', {
+            from, to, text
+        })
+        .then(res=>{
+            toast("message sent!")
+            clearFields()
+        })
+        .catch(e=>{
+            let r = e.response
+
+            if(r.status === 422)
+                r.data.errors.forEach(item=>toast(item.message ? item.message : item))
+            else {
+                toast("Internal error occurred. Try again later")
+                console.log(r.data)
+            }
+        })
+    }
+
+</script>
+
+</body>
+</html>
