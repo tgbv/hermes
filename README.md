@@ -36,11 +36,13 @@ As messaging engine Hermes uses [Telnyx](https://telnyx.com), so note your messa
 
 ### Contributing/Engineering
 
-Currently application has 2 base modules: the **server** and the **sms-sender** which communicate locally via HTTP.
+Application has 3 base modules which communicate locally via HTTP.
 
-- Server is written in Node with Expressjs and uses Ejs to process frontend data. It handles the frontend, API and site logic.
+- **Server** is written in Node with Expressjs and uses Ejs to process frontend data. It handles the frontend, API and site logic.
 
-- Sms-sender is written in Go with [telnyx-golang](https://github.com/tgbv/telnyx-golang) wrapper for Telnyx API. It handles the actual process of sending/receiving messages. Outbound communications are in direct with Telnyx API, via **clearnet**, so your sent message does reach the clearnet at some point.
+- **SMS-sender** is written in Go with [telnyx-golang](https://github.com/tgbv/telnyx-golang) wrapper for Telnyx API. It handles the actual process of sending/receiving messages. Outbound communications are in direct with Telnyx API, via **clearnet**, so your sent message does reach the clearnet at some point.
+
+- **Blacklist** is written in Go. It fetches the list with blacklisted phrases every ~2 minutes and stores them in RAM. It checks the outgoing messages from/text against the phrases via regular expressions.
 
 Ideas and contributions are welcomed!
 
