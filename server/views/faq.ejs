@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('global/head') %>
+    <title>Hermes - Frequent asked questions</title>
+
+    <style>
+        ul[tos] {
+            margin-top: -.5rem;
+            margin-left: 1rem;
+        }
+
+        li {
+            margin-top: 5px;
+        }
+        p[q] {
+            margin-top: 2rem;
+            margin-left: 0;
+            font-size: 18px;
+        }
+
+        main {
+            padding-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <%- include('header') %>
+    <%- include('sidenav') %>
+
+    <main class="container">
+        <h4>FAQ Section</h4>
+        <p style="font-size:18px">Your question may have its answer here.</p>
+
+        <p q><b>1) I have sent a message but the receipt number did not receive it. What's happening?</b></p>
+        <p>SMS world is vast and complicated. There are dozens of reasons why it didn't receive, but the most common one is it has been flagged as spam
+            by a certain carrier.
+            
+            For instance, if you send a message with text such as "I will invade USA", and at "from" you input "V. Putin" it's likely the message won't receive.
+           
+            <br><br>Or, if you send too many messages in a short amount of time to numbers administrated by a certain carrier, the latter one may blacklist Hermes's 
+            carrier for some time.<br><br>
+            
+            Other reasons may include network overload from carrier's side, broken lines, etc. Unfortunately carriers reserve the right to not 
+            specify reasons amid rejecting messages. Sometimes they may state they have received it but in fact discarded it. 
+            Most of the time they do these to protect their customers from spam.
+        </p>
+
+        <p q><b>2) I have sent a message with a custom "from" name, but the receipt number has received it under a different "from" name</b></p>
+        <p>There are 2 known cases for this behaviour:
+            <ul tos>
+                <li>1) Receipt carrier does not allow custom "from" field from the numbers registered by Hermes. In which case Hermes may attempt to resend
+                    the message under its actual number. It's known fact this happens for US receipts.
+                </li>
+                <li>2) Receipt carrier has chosen to map the "from" name to a number (usually a short one) of its own. That occurs to prevent spam.</li>
+            </ul>
+        </p>
+
+    </main>
+
+    <%- include('footer') %>
+
+
+</body>
+</html>

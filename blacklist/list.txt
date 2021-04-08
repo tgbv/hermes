@@ -1,5 +1,5 @@
 # this is the blacklist (UTF-8 encoded)
-# add here any word or phrase you believe to be abusive, one by line; eg: "facebook"
+# add here any word or phrase you believe to be abusive, one per line; eg: "facebook"
 # empty lines and those starting with hashtags will be ommited
 # regex expressions are supported; eg: "(rape|kill|murder) you"
 
@@ -23,7 +23,8 @@ covid
 impresi.* de su dni
 ssn
 social security number
-(cia|nasa|fbi)
+(cia|nasa|fbi|irs)
+gifts* cards*
 
 
 # list of potential abusive phrases used in blackmail/threatening messages
@@ -34,3 +35,12 @@ detonat(e|ing)
 stab
 nigg*(a|er)s*
 
+
+# no public figures
+warren.*buffet
+putin
+(bill|william).* gates
+epstein
+(donald.* trump|obama|biden)
+(elon.* musk)
+angela.* merkel

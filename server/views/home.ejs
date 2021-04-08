@@ -4,7 +4,11 @@
     <%- include('global/head') %>
 
     <title>Hermes project</title>
-
+    <style>
+        a[tos] {
+            font-size: 15px
+        }
+    </style>
 </head>
 <body>
 <%- include('header') %>
@@ -39,6 +43,12 @@
                 <label for="text">Text message. GSM-7 encoded. Max 160 chars. Multines supported.</label>
             </div>
 
+            <label >
+                <input type="checkbox" name="terms_of_service">
+                <span>I agree with the&nbsp;</span><a tos href="/tos" target="_blank">Terms of Service</a>
+            </label>
+            <br>
+            <br>
             <div class="row">
                 <div class="col s6">
                     <%- captcha_demo %>
@@ -77,6 +87,12 @@
                         value="">
                     <label for="pss">Password. Min 5 chars, max 64 chars.</label>
                 </div>
+                <label >
+                    <input type="checkbox" name="terms_of_service">
+                    <span>I agree with the&nbsp;</span><a tos href="/tos" target="_blank">Terms of Service</a>
+                </label>
+                <br>
+                <br>
                 <div class="row">
                     <div class="col s6">
                         <%- captcha_reg %>
