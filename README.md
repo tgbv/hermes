@@ -25,8 +25,8 @@ As messaging engine Hermes uses [Telnyx](https://telnyx.com), so note your messa
 - [x] Add filter list for wording to prevent abuse <-- see /blacklist/list.txt
 - [ ] Add throttling information in dashboard
 - [ ] Add global site stats
-- [ ] Add TOS and privacy statements
-- [ ] Add FAQ
+- [ ] Add TOS and privacy statements <-- half
+- [x] Add FAQ
 - [x] Implement better GUI for mobile
 
 -------------
