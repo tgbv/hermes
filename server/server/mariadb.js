@@ -12,7 +12,8 @@ const Instance = new Sequelize({
     database: process.env.DB_NAME,
     port: process.env.DB_PORT,
     dialectOptions:{
-        timezone: "+00:00"
+        timezone: "+00:00",
+        keepAlive: true,
     },
     define:{
         charset:'utf8'
