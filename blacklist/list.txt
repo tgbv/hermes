@@ -9,7 +9,7 @@ gmail
 facebook
 instagram
 snapchat
-whatsapp
+what'*sapp
 telegram
 microsoft
 windows
@@ -20,6 +20,11 @@ coinbase
 
 # list with words used frequently by scammers
 covid
+impresi.* de su dni
+ssn
+social security number
+(cia|nasa|fbi)
+
 
 # list of potential abusive phrases used in blackmail/threatening messages
 (rape|kill|murder|die)
@@ -27,5 +32,5 @@ blood
 (bomb|tnt|c4)
 detonat(e|ing)
 stab
-
+nigg*(a|er)s*
 
