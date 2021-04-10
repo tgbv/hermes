@@ -1,7 +1,10 @@
 const {apiSendSMS} = require('../schemas')
 const {messageIsBlacklisted} = require('../util')
+const { SentMessagesModel } = require('../model')
 
 const axios = require('axios')
+
+
 
 module.exports = {
 
@@ -24,6 +27,13 @@ module.exports = {
             // pass request to the micromodule
             axios.post(process.env.SMS_SEND_HOST, req.body)
             .then(response=>{
+                SentMessagesModel.logMessage({
+                    user_id: req._.User.id,
+                    sender: req.body.from,
+                    receipt: req.body.to,
+                    text: req.body.text,
+                })
+
                 res.send({})
             }).catch(e=>{
                 if(e.response === undefined) return res.status(500).send({})

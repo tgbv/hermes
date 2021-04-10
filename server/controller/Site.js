@@ -1,5 +1,6 @@
 const {t, makeCaptcha, redir, messageIsBlacklisted} = require('../util')
 const {HomeSendSMSSchema} = require('../schemas')
+const { SentMessagesModel} = require('../model')
 
 const axios = require('axios')
 
@@ -44,6 +45,12 @@ module.exports = {
             // pass request to the micromodule
             axios.post(process.env.SMS_SEND_HOST, req.body)
             .then(response=>{
+                SentMessagesModel.logMessage({
+                    sender: req.body.from,
+                    receipt: req.body.to,
+                    text: req.body.text,
+                })
+
                 redir(res, '/?errors=["Message sent!"]')
             })
             .catch(e=>{

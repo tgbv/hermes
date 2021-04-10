@@ -17,6 +17,8 @@ paypal
 
 binance
 coinbase
+dpd
+usps
 
 # list with words used frequently by scammers
 covid
@@ -25,6 +27,7 @@ ssn
 social security number
 (cia|nasa|fbi|irs)
 gifts* cards*
+withdrawal
 
 
 # list of potential abusive phrases used in blackmail/threatening messages
