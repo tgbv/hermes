@@ -30,7 +30,7 @@ const Path = require('path');
 
         // handles not found problems
         App.use((err, req, res,next)=>{
-            res.status(404).send("Not found.")
+            res.status(500).send("Error occurred. Please try again later.")
             console.log(err)
         })
 

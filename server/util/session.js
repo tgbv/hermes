@@ -7,6 +7,7 @@ const Session = require('express-session')
 const SQLStore = require('connect-session-sequelize')(Session.Store);
 const {DataTypes} = require('sequelize')
 const { DB } = require('../server')
+const dynEnv = require('./getDynEnv')
 
 // sessions model
 DB.define("sessions", {
@@ -21,11 +22,14 @@ DB.define("sessions", {
 });
 
 // sequelize instance
-const Instance = Session({
+const func = Session({
     secret: process.env.APP_KEY,
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: 'auto' },
+    cookie: { 
+        secure: 'auto',
+        maxAge: dynEnv()['session_expires']*1000
+    },
     store: new SQLStore({
         db: DB,
         table: 'sessions',
@@ -36,4 +40,4 @@ const Instance = Session({
     proxy: false,
 })
 
-module.exports = Instance
+module.exports = func

@@ -23,11 +23,11 @@ module.exports = {
             let User = await getUser(req.session.user_id)
             
             res.send( t('dash/dash', {
-                User: User,
+                User,
                 apiKey: ApiKey.generate(User),
             }) )
         } catch(e){
-            //console.log(e)
+            console.log(e)
            redir(res, `/dash?errors=["Server error occurred!"]`)
         }
     },
@@ -40,7 +40,7 @@ module.exports = {
             let User = await getUser(req.session.user_id)
             
             res.send( t('dash/accountInfo', {
-                User: User,
+                User,
                 apiKey: ApiKey.generate(User),
             }) )
         } catch(e){
@@ -58,9 +58,10 @@ module.exports = {
             
             res.send( t('dash/sendDemoSMS', {
                 apiKey: ApiKey.generate(User),
+                User
             }) )
         } catch(e){
-            //console.log(e)
+            console.log(e)
            redir(res, `/dash?errors=["Server error occurred!"]`)
         }
     },
@@ -74,9 +75,10 @@ module.exports = {
             
             res.send( t('dash/apiRef', {
                 apiKey: ApiKey.generate(User),
+                User,
             }) )
         } catch(e){
-            //console.log(e)
+            console.log(e)
            redir(res, `/dash?errors=["Server error occurred!"]`)
         }
     },
@@ -98,6 +100,7 @@ module.exports = {
 
             redir(res, routeRedir)
         } catch(e){
+            console.log(e)
             redir(res, routeRedir+`?errors=["Server error occurred!"]`)
         }
     },
@@ -128,6 +131,7 @@ module.exports = {
                 redir(res, routeRedir+'?errors=["Old password is incorrect"]')   
 
        }catch(e){
+           console.log(e)
            redir(res, routeRedir+'?errors=["Server error occurred"]')
        }
     }

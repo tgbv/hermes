@@ -48,4 +48,9 @@ Model.logMessage = async function(obj){
     }
 }
 
+Model.belongsTo(require('./users'), {
+    as: 'user',
+    foreignKey: 'user_id',
+})
+
 module.exports = Model

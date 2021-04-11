@@ -1,6 +1,6 @@
 const Bodyparser = require('body-parser')
 const {session} = require('../util')
-const {isLoggedIn, mustBeLoggedIn} = require('../middleware')
+const {isLoggedIn, mustBeLoggedIn, setDefaultSessionData, mustBeAdmin} = require('../middleware')
 
 module.exports = require('express').Router()
 
@@ -12,12 +12,13 @@ module.exports = require('express').Router()
     /**
      * auth related
      */
-    .use('/auth', Bodyparser.urlencoded(), session, isLoggedIn, require('./auth'))
+    .use('/auth', Bodyparser.urlencoded(), session, setDefaultSessionData, isLoggedIn, require('./auth'))
 
     /*
     *   dash related
     */
-    .use('/dash', Bodyparser.urlencoded(), session, mustBeLoggedIn, require('./dash'))
+    .use('/dash', Bodyparser.urlencoded(), session, setDefaultSessionData, mustBeLoggedIn, require('./dash'))
+    .use('/dash/admin', Bodyparser.urlencoded(), session, setDefaultSessionData, mustBeLoggedIn, mustBeAdmin, require('./dash-admin'))
 
     /*
     *   storage related
@@ -27,5 +28,5 @@ module.exports = require('express').Router()
     /*
     *   site related
     */
-    .use("/", session, Bodyparser.urlencoded(), require('./site'))
+    .use("/", Bodyparser.urlencoded(), session, setDefaultSessionData, require('./site'))
     

@@ -1,8 +1,10 @@
 const Fs = require('fs')
 
-module.exports = ()=>{
+module.exports = (key = null)=>{
     let p = Fs.realpathSync(__dirname + '/../.dyn.env')
-    return JSON.parse(
+    let d = JSON.parse(
         Fs.readFileSync(p)
     )
+    
+    return key ? d[key] : d
 }

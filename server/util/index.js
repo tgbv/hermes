@@ -6,6 +6,7 @@ module.exports = {
     makeCaptcha: require('./makeCaptcha'),
     messageIsBlacklisted: require('./messageIsBlacklisted'),
     getDynEnv: require('./getDynEnv'),
+    sessionInstance: require('./sessionInstance'),
 
     ApiKey: require('./ApiKey'),
 

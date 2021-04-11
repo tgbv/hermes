@@ -1,4 +1,4 @@
-const {t, makeCaptcha, redir, messageIsBlacklisted} = require('../util')
+const {t, makeCaptcha, redir, messageIsBlacklisted, getDynEnv} = require('../util')
 const {HomeSendSMSSchema} = require('../schemas')
 const { SentMessagesModel} = require('../model')
 
@@ -36,6 +36,10 @@ module.exports = {
             if(req.session.captcha_demo !== captcha_demo)
                 return redir(res, '/?errors=["Captcha is incorrect! Please retry."]')
 
+            // check if is allowed to send sms
+            if(req.session.sms_count === getDynEnv()['max_sms_per_session'])
+                return redir(res, `/?errors=["You can send only ${getDynEnv('max_sms_per_session')} demo SMS."]`)
+
             // check if message is blacklisted
             if (await messageIsBlacklisted(req.body)){
                 return redir(res, '/?errors=["Message contains blacklisted words"]')
@@ -51,6 +55,8 @@ module.exports = {
                     text: req.body.text,
                 })
 
+                req.session.sms_count++
+
                 redir(res, '/?errors=["Message sent!"]')
             })
             .catch(e=>{
@@ -64,7 +70,8 @@ module.exports = {
                 redir(res, '/?errors='+encodeURI(JSON.stringify(errors)))
             })
         } catch(e){
-            redir(res, `/dash?errors=["Server error occurred!"]`)
+            console.log(e)
+            redir(res, `/?errors=["Server error occurred!"]`)
         }
     }
 }

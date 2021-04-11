@@ -1,5 +1,5 @@
 const {AuthSchema} = require('../schemas')
-const {t, redir, ApiKey, makeCaptcha} = require('../util')
+const {t, redir, ApiKey, makeCaptcha, getDynEnv} = require('../util')
 const {UsersModel, ApiThrottlesModel} = require('../model')
 
 const Argon2 = require('argon2')
@@ -81,6 +81,10 @@ module.exports = {
         if(req.session.captcha_reg !== captcha_reg)
             return redir(res, "/?errors="+JSON.stringify([encodeURIComponent("Invalid recaptcha. Please retry. Note it's &nbsp;<b>case-sensitive</b>.")]))
 
+        // check if is allowed to register again
+        if(req.session.signup_count === getDynEnv()['max_signup_per_session'])
+            return redir(res, `/?errors=["You can only register ${getDynEnv('max_signup_per_session')} time(s)."]`)
+
         // check if username is taken
         let User = await UsersModel.findOne({
             where: { username }
@@ -100,11 +104,14 @@ module.exports = {
                 user_id: User.id,
             })
 
+            req.session.signup_count++
+
             return redir(res, "/auth/login?errors="+JSON.stringify([encodeURIComponent("User created with success! You may now login.")]))
             
         }
 
         }catch(e){
+            console.log(e)
             return redir(res, `/?errors=["Server error occurred."]`)
         }
     }

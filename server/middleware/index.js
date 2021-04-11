@@ -5,5 +5,7 @@ module.exports = {
     checkApiThrottle: require('./checkApiThrottle'),
     validateSchema: require('./validateSchema'),
     serverDown: require('./serverDown'),
+    setDefaultSessionData: require('./setDefaultSessionData'),
+    mustBeAdmin: require('./mustBeAdmin'),
     
 }
