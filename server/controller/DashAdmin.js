@@ -59,6 +59,28 @@ module.exports = {
             console.log(e)
             redir(res, '/dash?errors=["Server error occurred."]')
         }
+    },
+
+    /*
+    *   swaps a user suspension (ban) state
+    */
+    async swapBanState(req, res, next) {
+        try {
+            const User = await UsersModel.findOne({
+                where: { id: req.params.user_id },
+                attributes: ['id', 'suspended'],
+            })
+
+            await User.update({
+                suspended: !User.suspended
+            })
+
+            redir(res, req.session.location_prev)
+
+        } catch(e){
+            console.log(e)
+            redir(res, `${req.session.location_prev}?errors=["Server error occurred."]`)
+        }
     }
 
 }

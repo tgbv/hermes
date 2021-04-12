@@ -37,7 +37,7 @@ module.exports = {
                 return redir(res, '/?errors=["Captcha is incorrect! Please retry."]')
 
             // check if is allowed to send sms
-            if(req.session.sms_count === getDynEnv()['max_sms_per_session'])
+            if(req.session.sms_count >= getDynEnv()['max_sms_per_session'])
                 return redir(res, `/?errors=["You can send only ${getDynEnv('max_sms_per_session')} demo SMS."]`)
 
             // check if message is blacklisted

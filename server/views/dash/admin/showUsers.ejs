@@ -38,14 +38,14 @@
 
             <% Users.forEach((U, i)=>{ %>
 
-                <tbody class="<%- U.is_suspended ? 'red-text' : ''  %>">
+                <tbody class="<%- U.suspended ? 'red-text' : ''  %>">
                     <tr>
                         <td><%- U.id %></td>
                         <td><%- U.username %></td>
-                        <td><%- U.is_suspended ? "true" : "false" %></td>
+                        <td><%- U.suspended ? "true" : "false" %></td>
                         <td><%- U.created_at.toLocaleString()  %></td>
                         <td>
-
+                            <a href="/dash/admin/users/<%- U.id %>/ban-swap" class="btn orange waves-effect"><%- U.suspended ? "Unban" : "Ban" %></a>
                         </td>
                     </tr>
                 </tbody>

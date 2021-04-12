@@ -32,6 +32,11 @@ module.exports = DB.define('Users', {
         defaultValue: 0,
     },
 
+    suspended: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+    },
+
     created_at: { type: DataTypes.DATE},
     updated_at: { type: DataTypes.DATE},
 }, {

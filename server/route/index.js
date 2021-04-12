@@ -18,7 +18,6 @@ module.exports = require('express').Router()
     *   dash related
     */
     .use('/dash', Bodyparser.urlencoded(), session, setDefaultSessionData, mustBeLoggedIn, require('./dash'))
-    .use('/dash/admin', Bodyparser.urlencoded(), session, setDefaultSessionData, mustBeLoggedIn, mustBeAdmin, require('./dash-admin'))
 
     /*
     *   storage related
