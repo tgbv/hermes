@@ -49,7 +49,7 @@ module.exports = {
                             {model:UsersModel, as: "user"}
                         ]
                     }),
-                    MessagesCount: await UsersModel.count(),
+                    MessagesCount: await SentMessagesModel.count(),
                     page, nr,
 
                     User: {id: req.session.user_id},
