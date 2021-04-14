@@ -1,6 +1,6 @@
 const {SiteController} = require('../controller')
 const {isLoggedIn} = require('../middleware')
-const {t} = require('../util')
+const {t, getDynEnv} = require('../util')
 
 module.exports = require('express').Router()
 
@@ -13,5 +13,6 @@ module.exports = require('express').Router()
 
     .get('/tos', (req, res)=>{ res.send(t('tos'))})
     .get('/faq', (req, res)=>{ res.send(t('faq'))})
+    .get('/donate', (req, res)=>{ res.send(t('donate', { d: getDynEnv('donation_means') }))})
 
     
