@@ -50,15 +50,17 @@
             <table>
                 <tr>
                     <td style="width: 200px"> <div id="<%- item.type %>"></div> </td>
-                    <td> <a don href="#!"><%- item.addr %></a> </td>
+                    <td> <a don><%- item.addr %></a> </td>
                 </tr>
             </table>
             <script>
-                new QRCode(document.getElementById('<%- item.type %>'), { 
-                    width : 170,
-                    height : 170,
-                    useSVG: false
-                }).makeCode('<%- item.addr %>')
+                document.getElementById('<%- item.type %>').innerHTML = new QRCode({
+                    content: '<%- item.addr %>',
+                    padding: 0,
+                    width: 170,
+                    height: 170,
+                    ecl: 'Q'
+                }).svg()
             </script>
 
         <% }) %>
