@@ -80,7 +80,7 @@ func checkData(d *map[string]interface{}) bool {
 	from := strings.ToLower(strings.ReplaceAll((*d)["from"].(string), "\n", ""))
 	text := strings.ToLower(strings.ReplaceAll((*d)["text"].(string), "\n", ""))
 
-	mux.Lock()
+	defer mux.Lock()
 
 	for _, v := range phrases {
 
@@ -89,14 +89,12 @@ func checkData(d *map[string]interface{}) bool {
 		if err == nil {
 
 			if b {
-				mux.Unlock()
 				return false
 			} else {
 
 				// check body text
 				b, err = regexp.MatchString(`.*`+v+`.*`, text)
 				if err == nil && b {
-					mux.Unlock()
 					return false
 				} else {
 					continue
