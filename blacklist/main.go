@@ -80,8 +80,9 @@ func checkData(d *map[string]interface{}) bool {
 	from := strings.ToLower(strings.ReplaceAll((*d)["from"].(string), "\n", ""))
 	text := strings.ToLower(strings.ReplaceAll((*d)["text"].(string), "\n", ""))
 
-	defer mux.Lock()
-
+	mux.Lock()
+	defer mux.Unlock()
+	
 	for _, v := range phrases {
 
 		// check "from" field
@@ -105,7 +106,6 @@ func checkData(d *map[string]interface{}) bool {
 
 	}
 
-	mux.Unlock()
 	return true
 }
 
