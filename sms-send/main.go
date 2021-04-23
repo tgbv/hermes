@@ -56,6 +56,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	})
 
 	if err != nil {
+		fmt.Println("Error: ", err)
 		w.WriteHeader(500)
 
 		// strip the first line
@@ -70,7 +71,10 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 		w.Write(e)
 	} else {
-		out, _ := json.Marshal(res)
+		out, err := json.Marshal(res)
+		if err != nil {
+			fmt.Println("Error: ", err)
+		}
 
 		w.Write(out)
 	}

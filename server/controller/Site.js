@@ -1,6 +1,5 @@
-const {t, makeCaptcha, redir, messageIsBlacklisted, getDynEnv} = require('../util')
+const {t, makeCaptcha, redir, messageIsBlacklisted, getDynEnv, sendSMS} = require('../util')
 const {HomeSendSMSSchema} = require('../schemas')
-const { SentMessagesModel} = require('../model')
 
 const axios = require('axios')
 
@@ -46,29 +45,10 @@ module.exports = {
             }
 
             // send sms
-            // pass request to the micromodule
-            axios.post(process.env.SMS_SEND_HOST, req.body)
-            .then(response=>{
-                SentMessagesModel.logMessage({
-                    sender: req.body.from,
-                    receipt: req.body.to,
-                    text: req.body.text,
-                })
+            sendSMS(req.body)
+            .then(r=>redir(res, '/?errors='+JSON.stringify(r)))
+            .catch(r=>redir(res, '/?errors='+JSON.stringify(r)))
 
-                req.session.sms_count++
-
-                redir(res, '/?errors=["Message sent!"]')
-            })
-            .catch(e=>{
-                if(e.response === undefined) return redir(res, '/?errors=["Server error occurred"]')
-
-                let errors = []
-                e.response.data.errors.forEach(item=>{
-                    errors.push(item.title)
-                })
-
-                redir(res, '/?errors='+encodeURI(JSON.stringify(errors)))
-            })
         } catch(e){
             console.log(e)
             redir(res, `/?errors=["Server error occurred!"]`)

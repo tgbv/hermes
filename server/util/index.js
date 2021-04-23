@@ -7,6 +7,7 @@ module.exports = {
     messageIsBlacklisted: require('./messageIsBlacklisted'),
     getDynEnv: require('./getDynEnv'),
     sessionInstance: require('./sessionInstance'),
+    sendSMS: require('./sendSMS'),
 
     ApiKey: require('./ApiKey'),
 

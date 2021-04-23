@@ -1,12 +1,15 @@
 const Captcha = require('svg-captcha')
 
 module.exports = ()=>{
-    let text = Captcha.randomText(5)
-    let svg = Captcha(text, {
+
+    let data = Captcha.create({
+        charPreset: 'abcdefghjkmnopqrstuvwxyzABCDEFGHJKMNOPQRSTUVWXYZ0123456789',
         width: 200,
         height: 100,
         noise: 10,
+        size: 5,
+        ignoreChars: 'Il',
     })
 
-    return {text, svg}
+    return {text: data.text, svg: data.data}
 }
