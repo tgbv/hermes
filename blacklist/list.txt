@@ -4,15 +4,10 @@
 # regex expressions are supported; eg: "(rape|kill|murder) you"
 
 # list of well known companies of which customers are targeted by scammers
-google
-gmail
-facebook
-instagram
-snapchat
-what'*sapp
+(google|gmail)
+(facebook|instagram|snapchat|what'*sapp)
 telegram
-microsoft
-windows
+(microsoft|windows)
 paypal
 
 binance
