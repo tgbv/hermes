@@ -5,17 +5,16 @@ module.exports = async (req, res, next)=>{
     try {
         let User = await UsersModel.findOne({
             where: ApiKey.decode(req.params.key),
-            attributes: ['id'],
+            attributes: ['id', 'suspended'],
         })
 
-
-        if(User){
+        if(User && !User.suspended){
             if(!req._) req._ = {}
             req._.User = User
             next()
         }else {
             return res.status(403).send({
-                errors:[ "bad token"]
+                errors:[ "bad token or suspended user"]
             })
         }
     } catch(e) {

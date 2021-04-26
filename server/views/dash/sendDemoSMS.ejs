@@ -65,7 +65,7 @@
         .catch(e=>{
             let r = e.response
 
-            if(r.status === 422 || r.status === 429)
+            if(r.status !== 500)
                 r.data.errors.forEach(item=>toast(item.message ? item.message : item))
             else {
                 toast("Internal error occurred. Try again later")

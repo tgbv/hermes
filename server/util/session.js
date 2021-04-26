@@ -9,17 +9,7 @@ const {DataTypes} = require('sequelize')
 const { DB } = require('../server')
 const dynEnv = require('./getDynEnv')
 
-// sessions model
-DB.define("sessions", {
-    expires: DataTypes.DATE,
-    data: DataTypes.TEXT,
-    sid: {
-        type: DataTypes.STRING,
-        primaryKey: true,
-    }
-}, {
-    initialAutoIncrement: false,
-});
+const {SessionsModel } = require('../model')
 
 // sequelize instance
 const func = Session({

@@ -9,5 +9,6 @@ module.exports = {
 
     SentMessagesModel: require('./SentMessages'),
 
+    SessionsModel: require('./Sessions'),
     
 }

@@ -27,12 +27,30 @@
             <table>
                 <thead>
                     <tr>
+                        <form method="GET" action="/dash/admin/sent-messages">
+
                         <th>ID</th>
-                        <th>User</th>
-                        <th>Sender</th>
-                        <th>Receipt</th>
-                        <th>Text</th>
-                        <th>Created At</th>
+                        <th>User
+                            <br>
+                            <input type="text" class="browser-default" name="user" value="<%- user === undefined ? '':user %>">
+                        </th>
+                        <th>Sender
+                            <br>
+                            <input type="text" class="browser-default" name="sender" value="<%- sender === undefined ? '':sender %>">
+                        </th>
+                        <th>Receipt
+                            <br>
+                            <input type="text" class="browser-default" name="receipt" value="<%- receipt === undefined ? '':receipt %>">
+                        </th>
+                        <th>Text
+                            <br>
+                            <input type="text" class="browser-default" name="text" value="<%- text === undefined ? '':text %>">
+                        </th>
+                        <th>Created At
+                            <br>
+                            <button>Search</button>
+                        </th>
+                        </form>
                     </tr>
                 </thead>
 
@@ -55,10 +73,12 @@
 
             <br>
             <a class="btn waves-effect green"
-                href="/dash/admin/sent-messages?page=<%- page-1 %>"
+                id="prevBTN"
+                href=" "
                 <%- page < 2 ? "disabled" : "" %>  ><<</a>
             <a class="btn waves-effect green"
-                href="/dash/admin/sent-messages?page=<%- page+1 %>"
+                id="nextBTN"
+                href=" "
                 <%- MessagesCount <= page*nr ? "disabled" : "" %> >>></a>
             <br>
         </div>
@@ -70,6 +90,18 @@
 <script>
     <%- include('./global/util') %>
     <%- include('./global/errors') %>
+
+    let baseURL = window.location.href
+    let objBaseURL = new URL(baseURL)
+    objBaseURL.searchParams.delete("page")
+
+    function computeHREF(){
+        return objBaseURL.searchParams.get('user') === null ?
+            objBaseURL.href+"?" : objBaseURL.href+"&"
+    }
+
+    _('prevBTN').href= computeHREF() + "page=<%- page-1 %>"
+    _('nextBTN').href= computeHREF() + "page=<%- page+1 %>"
 
 </script>
 
