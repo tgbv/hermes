@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./global/head') %>
+    <%- include('./dash/head') %>
+    
+    <title>Hermes - My tickets</title>
+    <style>
+        tr, td, th {
+            border: 1px solid lightgrey
+        }
+    </style>
+</head>
+<body>
+    <%- include('./dash/header') %>
+    <%- include('./dash/sidenav') %>
+<main>
+    <div class="row">
+        <div class="col s12">
+
+            <% if(User.id === 1){ %>
+                <p class="flow-text">All tickets</p>
+
+            <% } else { %>
+                <p class="flow-text">My tickets <span class="btn blue waves-effect modal-trigger" data-target="makeTicketModal">New</span></p>
+
+                <p>Open a new ticket only if you have another topic to discuss.</p>
+            <% } %>
+    
+            <table>
+                <thead>
+                    <tr>
+                        <th>Status</th>
+                        <th>Created</th>
+                        <th>Topic</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <% tickets.forEach((item, index)=>{ %>
+
+                <tbody>
+                    <tr>
+                        <td>
+                            <% if(item.closed){ %>
+                                <span class="green-text"><b>Closed</b></span>
+                            <% } else { %>
+                                <span class="red-text"><b>Open</b></span>
+                            <% } %>
+                        <td><%- item.created_at.toLocaleString() %></td>
+                        <td><%- item.topic %></td>
+                        <td>
+                            <a href="/dash/tickets/<%- item.id %>" class="btn blue waves-effect">View</a>
+
+                            <% if(item.closed) {%>
+                                <a href="/dash/tickets/<%- item.id %>/swap/0" class="btn red waves-effect">Open</a>
+                            <% } else { %>
+                                <a href="/dash/tickets/<%- item.id %>/swap/1" class="btn green waves-effect">Close</a>
+                            <% } %>
+                        </td>
+                    </tr>
+                </tbody>
+
+                <% }) %>
+            </table>
+        </div>
+    </div>
+</main>
+<%- include('./footer') %>
+
+<%- include('./dash/tickets/makeTicket') %>
+
+<script>
+    <%- include('./global/util') %>
+    <%- include('./global/errors') %>
+
+</script>
+
+</body>
+</html>

@@ -3,5 +3,7 @@ module.exports = {
     AuthSchema: require('./Auth'),
     ChangePasswordSchema: require('./changePassword'),
     HomeSendSMSSchema: require('./HomeSendSMS'),
+    OpenTicketSchema: require('./openTicket'),
+    SendTicketMessage: require('./sendTicketMessage'),
     
 }

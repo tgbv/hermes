@@ -1,5 +1,5 @@
 const Op = require('sequelize').Op
-const {UsersModel, SentMessagesModel} = require('../model')
+const {UsersModel, SentMessagesModel, TicketsModel} = require('../model')
 const { DB } = require('../server')
 const {t, redir} = require('../util')
 
@@ -144,6 +144,26 @@ module.exports = {
         } catch(e){
             console.log(e)
             redir(res, `${req.session.location_prev}?errors=["Server error occurred."]`)
+        }
+    },
+
+    /*
+    *   returns all tickets from network
+    */
+    async getTickets(req, res){
+        try {
+           res.send( t('dash/tickets', {
+               User: {id: req.session.user_id},
+               tickets: await TicketsModel.findAll({
+                order: [
+                    [ 'closed', 'asc' ],
+                    ['id', 'asc'],
+                ]
+            })
+           })) 
+        }catch(e){
+            console.log(e)
+            redir(res, `/dash?errors=["Server error occurred."]`)
         }
     }
 

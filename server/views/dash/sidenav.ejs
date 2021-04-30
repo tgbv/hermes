@@ -22,8 +22,12 @@
     <li><div class="divider"></div></li>
     <li><a href="/dash/admin/users"><i class="material-icons">supervisor_account</i>User Accounts</a></li>
     <li><a href="/dash/admin/sent-messages"><i class="material-icons">present_to_all</i>Sent Messages</a></li>
+    <li><a href="/dash/admin/tickets"><i class="material-icons">book</i>All tickets</a></li>
 
-    <% } %>
+    <% } else {%>
+    <li><a href="/dash/tickets"><i class="material-icons">book</i>My tickets</a></li>
+
+    <% }%>
     <li><div class="divider" ></div></li>
       
     <li><a href="/dash/logout"><i class="material-icons">exit_to_app</i>Logout</a></li>

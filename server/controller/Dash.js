@@ -1,9 +1,10 @@
 const {t, redir, ApiKey} = require('../util')
-const { UsersModel} = require('../model')
+const { UsersModel, TicketChatModel, TicketsModel} = require('../model')
 const {ChangePasswordSchema} = require('../schemas')
 
 const Argon2 = require('argon2')
 const Captcha = require('svg-captcha')
+const openTicket = require('../schemas/openTicket')
 
 /*
 *   reusable method for current controllers set
@@ -134,5 +135,173 @@ module.exports = {
            console.log(e)
            redir(res, routeRedir+'?errors=["Server error occurred"]')
        }
-    }
+    },
+
+    /*
+    *   retrieves all user's tickets
+    */
+    async getMyTickets(req, res){
+        try {
+            res.send( t('dash/tickets', {
+                User: await getUser(req.session.user_id),
+                tickets: await TicketsModel.findAll({
+                    where:{ user_id: req.session.user_id },
+                    order: [
+                        [ 'closed', 'asc' ],
+                        ['id', 'asc'],
+                    ]
+                })
+            }) )
+        } catch(e){
+            console.log(e)
+            redir(res, `/dash?errors=["Server error occurred!"]`)    
+        }
+    },
+
+    /*
+    *   retrieve ticket data
+    */
+    async getTicketData(req, res){
+        try {
+            where = {}
+
+            // in case it's admin
+            if(req.session.user_id === 1)
+                where = {id: req.params.ticket_id}
+            else 
+                where = { 
+                    id: req.params.ticket_id, 
+                    user_id: req.session.user_id,  
+                }
+
+            res.send( t('dash/ticketChat', {
+                User: await getUser(req.session.user_id),
+                Ticket: await TicketsModel.findOne({
+                    where,
+                    include:[
+                        {
+                            model:TicketChatModel, 
+                            as: "chat",
+                            include: [{
+                                model: UsersModel,
+                                as: 'user',
+                            }]
+                        }
+                    ]
+                })
+            }) )
+        } catch(e){
+            console.log(e)
+            redir(res, `/dash?errors=["Server error occurred!"]`)    
+        }
+    },
+
+    /*
+    *   opens a new ticket
+    */
+    async openTicket(req, res){
+        try {
+            // make ticket
+            let Ticket = await TicketsModel.create({
+                user_id: req.session.user_id,
+                topic: req.body.topic,
+            })
+
+            // make default message
+            await TicketChatModel.create({
+                ticket_id: Ticket.id,
+                created_by: req.session.user_id,
+                message: req.body.message,
+            })
+
+            // Done
+            redir(res, `/dash/tickets`)
+        } catch(e){
+            console.log(e)
+            redir(res, `/dash?errors=["Server error occurred!"]`)    
+        }
+    },
+
+    /*
+    *   sends a ticket message 
+    */
+    async sendTicketMessage(req, res){
+        try {
+            where = {}
+
+            // in case it's admin
+            if(req.session.user_id === 1)
+                where = {id: req.params.ticket_id}
+            else 
+                where = { 
+                    id: req.params.ticket_id, 
+                    user_id: req.session.user_id,  
+                }
+
+            // attempt to get ticket
+            let Ticket = await TicketsModel.findOne({
+                where,
+            })
+
+            // make message
+            await TicketChatModel.create({
+                ticket_id: Ticket.id,
+                created_by: req.session.user_id,
+                message: req.body.message,
+            })
+
+            // update seen states
+            // attempt to get ticket
+            Ticket.update({
+                admin_read: req.session.user_id === 1 ? 1 : 0,
+                user_read: req.session.user_id === 1 ? 0 : 1,
+                closed: 0,
+            })
+
+            // Done
+            redir(res, `/dash/tickets/${req.params.ticket_id}`)
+        } catch(e){
+            console.log(e)
+            redir(res, `/dash/tickets?errors=["Server error occurred!"]`)    
+        }
+    },
+
+    /*
+    *   opens/close ticket
+    */
+    async swapTicketState(req, res){
+        try {
+            where = {}
+
+            // in case it's admin
+            if(req.session.user_id === 1)
+                where = {id: req.params.ticket_id}
+            else 
+                where = { 
+                    id: req.params.ticket_id, 
+                    user_id: req.session.user_id,  
+                }
+
+            // attempt to get ticket
+            let Ticket = await TicketsModel.findOne({
+                where,
+            })
+            
+            // swap
+            Ticket.update({
+                closed: parseInt(req.params.state) > 0 ? true : false,
+            })
+
+            // Done
+            if(req.session.user_id === 1)
+                redir(res, `/dash/admin/tickets`)
+            else
+                redir(res, `/dash/tickets`)
+        } catch(e){
+            console.log(e)
+            redir(res, `/dash?errors=["Server error occurred!"]`)    
+        }
+    },
+
+
 }

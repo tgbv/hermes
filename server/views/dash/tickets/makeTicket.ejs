@@ -1,0 +1,26 @@
+<div id="makeTicketModal" class="modal">
+    <div class="modal-content">
+      <h4>Make ticket</h4>
+      <form action="/dash/tickets" method="POST">
+
+          <div class="input-field ">
+              <input id="topic" name="topic" type="text" maxlength="256" minlength="3"
+                  value="" required>
+              <label for="topic">Ticket topic</label>
+          </div>
+
+          <div class="input-field">
+            <textarea id="message" name="message" class="materialize-textarea" minlength="3" maxlength="100000" required></textarea>
+            <label for="message">Text message. Max 100000 chars. Multines supported.</label>
+          </div>
+
+          <button class="btn green darken-2 waves-effect waves-light"> Create</button>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-red btn-flat">Abort</a>
+    </div>
+  </div>
+  <script>
+      M.Modal.init(document.getElementById('makeTicketModal'))
+  </script>

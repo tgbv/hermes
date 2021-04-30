@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./global/head') %>
+    <%- include('./dash/head') %>
+    
+    <title>Hermes - <%- Ticket.topic %></title>
+    <style>
+        tr, td, th {
+            border: 1px solid lightgrey
+        }
+    </style>
+</head>
+<body>
+    <%- include('./dash/header') %>
+    <%- include('./dash/sidenav') %>
+<main>
+    <div class="row">
+        <div class="col s12">
+            <p class="flow-text"><%- Ticket.topic %></p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>From</th>
+                        <th>Message</th>
+                        <th>Created</th>
+                    </tr>
+                </thead>
+                <% Ticket.chat.forEach((item, index)=>{ %>
+
+                <tbody>
+                    <tr>
+                        <td>
+                            <% if(item.user.id !== User.id) { %>
+                                <span class="red-text"><b><%- item.user.username %></b></span>
+                            <% } else { %>
+                                <span >Me</span>
+                            <% } %>
+                        </td>
+                        <td><%- item.message %></td>
+                        <td><%- item.created_at.toLocaleString() %></td>
+                    </tr>
+                </tbody>
+
+                <% }) %>
+            </table>
+
+            <br>
+            <form method="POST" action="/dash/tickets/<%- Ticket.id %>/message">
+                <span>You can reply here. Replying to a closed ticket re-opens it</span>
+
+                <div class="row">
+                    <div class="col s10">
+                        <textarea id="message" name="message"  minlength="3" maxlength="100000"
+                            style="height: 100px"
+                            required
+                            placeholder="Text message. Max 100000 chars. Multines supported."></textarea>
+                    </div>
+                    <div class="col s2">
+                        <button class="btn green darken-2 waves-effect waves-light"> Send</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+<%- include('./footer') %>
+
+<script>
+    <%- include('./global/util') %>
+    <%- include('./global/errors') %>
+
+
+    window.scrollTo(0,document.body.scrollHeight);
+</script>
+
+</body>
+</html>

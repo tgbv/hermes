@@ -10,5 +10,10 @@ module.exports = {
     SentMessagesModel: require('./SentMessages'),
 
     SessionsModel: require('./Sessions'),
+
+    TicketsModel: require('./Tickets'),
+    
+    TicketChatModel: require('./TicketChat'),
+    
     
 }
