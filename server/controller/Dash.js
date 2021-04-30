@@ -178,15 +178,16 @@ module.exports = {
                 User: await getUser(req.session.user_id),
                 Ticket: await TicketsModel.findOne({
                     where,
-                    include:[
-                        {
-                            model:TicketChatModel, 
-                            as: "chat",
-                            include: [{
-                                model: UsersModel,
-                                as: 'user',
-                            }]
-                        }
+                    include:[{
+                        model:TicketChatModel, 
+                        as: "chat",
+                        include: [{
+                            model: UsersModel,
+                            as: 'user',
+                        }]
+                    }],
+                    order:[
+                        [{ model: TicketChatModel, as: 'chat'}, 'id', 'asc']
                     ]
                 })
             }) )
