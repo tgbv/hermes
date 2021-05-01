@@ -8,6 +8,8 @@ module.exports = {
     getDynEnv: require('./getDynEnv'),
     sessionInstance: require('./sessionInstance'),
     sendSMS: require('./sendSMS'),
+    deleteUser: require('./deleteUser'),
+    
 
     ApiKey: require('./ApiKey'),
 

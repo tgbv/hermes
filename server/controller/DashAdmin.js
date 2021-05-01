@@ -1,7 +1,7 @@
 const Op = require('sequelize').Op
 const {UsersModel, SentMessagesModel, TicketsModel} = require('../model')
 const { DB } = require('../server')
-const {t, redir} = require('../util')
+const {t, redir, deleteUser} = require('../util')
 
 module.exports = {
 
@@ -165,6 +165,20 @@ module.exports = {
             console.log(e)
             redir(res, `/dash?errors=["Server error occurred."]`)
         }
-    }
+    },
+
+    /*
+    *   delete account and all affiliated data
+    */
+    async delAccount(req, res){
+        try {
+            await deleteUser(req.params.user_id)
+
+            redir(res, `${req.session.location_prev}/?errors=["Account removed with success!"]`)
+        }catch(e){
+            console.log(e)
+            redir(res, `${req.session.location_prev}?errors=["Server error occurred!"]`)    
+        }
+    },
 
 }

@@ -7,6 +7,8 @@ const { OpenTicketSchema, SendTicketMessage } = require('../schemas')
 */
 module.exports = require('express').Router()
     .get('/', DashController.showFront)
+
+    // account related
     .get('/logout', AuthController.logout)
     .get('/regenerate-api', DashController.regenerateAPI)
     .post('/change-password', DashController.changePassword)
@@ -14,6 +16,9 @@ module.exports = require('express').Router()
     .get('/account-information', DashController.showAccountInformation)
     .get('/send-demo-sms', DashController.showDemoSMS)
     .get('/api-reference', DashController.showApiReference)
+
+    .post('/del-account', DashController.delAccount)
+    //
 
     // Tickets related
     .get('/tickets', DashController.getMyTickets)

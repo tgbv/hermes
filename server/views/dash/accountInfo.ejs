@@ -45,11 +45,18 @@
                         <td><a href="/dash/regenerate-api">Regenerate</a></td>
                     </tr>                
                 </tbody>
+                <tbody>
+                    <tr>
+                        <td>Actions</td>
+                        <td colspan="2"><div class="btn red waves-effect modal-trigger" data-target="delAccountModal">Delete account</div></td>
+                    </tr>
+                </tbody>
             </table>
         </div>
     </div>
 
     <%- include('./dash/accountInfo/changePasswordModal') %>
+    <%- include('./dash/accountInfo/delAccountModal') %>
 </main>
 <%- include('./footer') %>
 

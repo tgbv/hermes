@@ -63,6 +63,7 @@
                         <td><%- U.created_at.toLocaleString()  %></td>
                         <td>
                             <a href="/dash/admin/users/<%- U.id %>/ban-swap" class="btn orange waves-effect"><%- U.suspended ? "Unban" : "Ban" %></a>
+                            <div class="btn red waves-effect modal-trigger" data-target="delAccount" onclick="setUserIdToDelete(<%- U.id %>)" >Delete</div>
                         </td>
                     </tr>
                 </tbody>
@@ -85,6 +86,7 @@
 
 </main>
 <%- include('./footer') %>
+<%- include('./dash/admin/showUsers/delAccount') %>
 
 <script>
     <%- include('./global/util') %>

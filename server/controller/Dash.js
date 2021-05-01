@@ -1,5 +1,5 @@
-const {t, redir, ApiKey} = require('../util')
-const { UsersModel, TicketChatModel, TicketsModel} = require('../model')
+const {t, redir, ApiKey, deleteUser} = require('../util')
+const { UsersModel, TicketChatModel, TicketsModel, SentMessagesModel} = require('../model')
 const {ChangePasswordSchema} = require('../schemas')
 
 const Argon2 = require('argon2')
@@ -303,6 +303,22 @@ module.exports = {
             redir(res, `/dash?errors=["Server error occurred!"]`)    
         }
     },
+
+    /*
+    *   delete account and all affiliated data
+    */
+    async delAccount(req, res){
+        try {
+            await deleteUser(req.session.user_id)
+            delete req.session["user_id"]   // this dumb shit must be deleted manually
+                                            // I know why i call it dumb shit
+
+            redir(res, `/?errors=["Account removed with success!"]`)
+        }catch(e){
+            console.log(e)
+            redir(res, `${req.session.location_prev}?errors=["Server error occurred!"]`)    
+        }
+    }
 
 
 }

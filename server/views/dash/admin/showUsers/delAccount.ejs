@@ -1,0 +1,24 @@
+<div id="delAccount" class="modal">
+    <div class="modal-content">
+      <h4>Account deletion</h4>
+      <div class="divider"></div>
+      <form action="/dash/admin/del-user/0" method="POST" id="delAccountForm">
+
+            <p class="flow-text">Are you sure you want to?</p>
+            <p>This action is irreversible. It will remove user data, sent messages, 
+                open/closed tickets from system and unlock username for others to register with.</p>
+
+          <button class="btn red darken-2 waves-effect waves-light">Yes, delete it!</button>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Abort</a>
+    </div>
+  </div>
+  <script>
+      M.Modal.init(document.getElementById('delAccount'))
+      
+      const setUserIdToDelete = function(id){
+        document.getElementById('delAccountForm').action=`/dash/admin/del-user/${id}`
+      }
+  </script>
