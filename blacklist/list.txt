@@ -10,10 +10,9 @@ telegram
 (microsoft|windows)
 paypal
 
-binance
-coinbase
-dpd
-usps
+(binance|coinbase)
+(dpd|usps)
+pnc
 
 # list with words used frequently by scammers
 covid
