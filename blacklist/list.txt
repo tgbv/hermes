@@ -9,6 +9,7 @@
 telegram
 (microsoft|windows)
 paypal
+(vodafone|orange)
 
 (binance|coinbase)
 (dpd|usps)
