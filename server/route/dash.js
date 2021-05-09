@@ -16,6 +16,7 @@ module.exports = require('express').Router()
     .get('/account-information', DashController.showAccountInformation)
     .get('/send-demo-sms', DashController.showDemoSMS)
     .get('/api-reference', DashController.showApiReference)
+    .get('/sent-messages', DashController.showSentMessages)
 
     .post('/del-account', DashController.delAccount)
     //

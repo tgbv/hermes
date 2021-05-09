@@ -318,7 +318,34 @@ module.exports = {
             console.log(e)
             redir(res, `${req.session.location_prev}?errors=["Server error occurred!"]`)    
         }
-    }
+    },
+
+    /*
+    *   shows the sent messages
+    */
+    async showSentMessages(req, res){
+        try {
+            let page = req.query.page === undefined || req.query.page < 2 ? 1 : parseInt(req.query.page)
+            let nr = req.query.nr === undefined || req.query.nr < 1 ? 20 : parseInt(req.query.nr)
+
+            res.send( t('dash/sentMessages', {
+                User: await getUser(req.session.user_id),
+                SentMessages: await SentMessagesModel.findAll({
+                    where: { user_id: req.session.user_id },
+                    order: [["id", 'desc']],
+                    offset: page*nr-nr,
+                    limit: nr,
+                }),
+                MessagesCount: await SentMessagesModel.count({
+                    where: { user_id: req.session.user_id },
+                }),
+                page, nr,
+            }) )
+        }catch(e){
+            console.log(e)
+            redir(res, `${req.session.location_prev}?errors=["Server error occurred!"]`)  
+        }
+    },
 
 
 }
