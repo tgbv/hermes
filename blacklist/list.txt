@@ -5,10 +5,11 @@
 
 # list of well known companies of which customers are targeted by scammers
 (google|gmail)
-(facebook|instagram|snapchat|what'*sapp)
+(facebook|instagram|snapchat|what'*sapp|vk)
 telegram
 (microsoft|windows)
 paypal
+(vodafone|orange)
 
 (binance|coinbase)
 (dpd|usps)
