@@ -39,6 +39,6 @@ warren.*buffet
 putin
 (bill|william).* gates
 epstein
-(donald.* trump|obama|biden)
+(trump|obama|biden)
 (elon.* musk)
 angela.* merkel
