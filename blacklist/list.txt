@@ -12,7 +12,7 @@ telegram
 (vodafone|orange)
 
 (binance|coinbase)
-(dpd|usps)
+(dpd|usps|amazon)
 pnc
 
 # list with words used frequently by scammers
