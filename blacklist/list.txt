@@ -20,7 +20,7 @@ covid
 impresi.* de su dni
 ssn
 social security number
-(cia|nasa|fbi|irs)
+(cia|nasa|fbi|irs|sba)
 gifts* cards*
 withdrawal
 
