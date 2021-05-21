@@ -8,7 +8,7 @@
 (facebook|instagram|snapchat|what'*sapp|vk)
 telegram
 (microsoft|windows)
-(paypal|worldremit|revolut|zelle|cashapp)
+(paypal|worldremit|remit|revolut|zelle|cashapp)
 (vodafone|orange)
 
 (binance|coinbase)
