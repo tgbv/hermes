@@ -16,6 +16,7 @@ remitly
 (dpd|usps|amazon)
 pnc
 ghs
+sfr
 
 # list with words used frequently by scammers
 covid
