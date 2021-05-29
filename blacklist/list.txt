@@ -8,12 +8,14 @@
 (facebook|instagram|snapchat|what'*sapp|vk)
 telegram
 (microsoft|windows)
-(paypal|worldremit|remit|revolut|zelle|cashapp)
+(paypal|worldremit|remit|revolut|zelle|cashapp|ghs)
 (vodafone|orange)
+remitly
 
 (binance|coinbase)
 (dpd|usps|amazon)
 pnc
+ghs
 
 # list with words used frequently by scammers
 covid
