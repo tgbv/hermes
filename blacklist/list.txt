@@ -8,9 +8,11 @@
 (facebook|instagram|snapchat|what'*sapp|vk)
 telegram
 (microsoft|windows)
-(paypal|worldremit|remit|revolut|zelle|cashapp|ghs)
+(paypal|worldremit|remit|revolut|zelle|cashapp)
 (vodafone|orange)
 remitly
+ghs
+mobilemoney
 
 (binance|coinbase)
 (dpd|usps|amazon)
