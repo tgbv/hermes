@@ -13,6 +13,7 @@ telegram
 remitly
 ghs
 mobilemoney
+huahan
 
 (binance|coinbase)
 (dpd|usps|amazon)
