@@ -5,7 +5,6 @@ module.exports ={
     DashAdminController: require('./DashAdmin'),
     ApiController: require('./Api'),
     SiteController: require('./Site'),
-
-    
+    RecoverPassword: require('./RecoverPassword'),
     
 }

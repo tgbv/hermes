@@ -32,31 +32,52 @@
                         </td>
                     </tr>                
                 </tbody>
+
+                <tbody>
+                    <tr>
+                        <td>2FA (<a href="http://7o5hh2f6gdxusghkqphrgwhs3xjqogakmusscbs4ektjv42sqeft4iqd.onion" target="_blank">Tofa</a>):</td>
+                        <% if(User.tofa_token) { %>
+                            <td>
+                                <span class="green-text">Active</span>
+                            </td>
+                            <td>
+                                <div class="btn orange waves-effect modal-trigger" data-target="add2faModal">Update</div>
+                                <a class="btn red waves-effect" href="/dash/unlink-2fa">Delete</a>
+                            </td>
+                        <% } else { %>
+                            <td >
+                                <div class="btn green waves-effect modal-trigger" data-target="add2faModal">Activate</div>
+                            </td>
+                            <td>
+                                <span class="red-text">Not active!</span>
+                            </td>
+                        <% } %>
+                    </tr>
+                </tbody>
+                <tbody>
+                    <tr>
+                        <td>API key:</td>
+                        <td style="word-wrap: anywhere;"><code ><%- apiKey %></code></td>
+                        <td><a href="/dash/regenerate-api" class="btn orange waves-effect">Regenerate</a></td>
+                    </tr>                
+                </tbody>
+
                 <tbody>
                     <tr>
                         <td>Created:</td>
                         <td colspan="2"><code><%- User.created_at %></code></td>
                     </tr>                
                 </tbody>
-                <tbody>
-                    <tr>
-                        <td>API key:</td>
-                        <td style="word-wrap: anywhere;"><code ><%- apiKey %></code></td>
-                        <td><a href="/dash/regenerate-api">Regenerate</a></td>
-                    </tr>                
-                </tbody>
-                <tbody>
-                    <tr>
-                        <td>Actions</td>
-                        <td colspan="2"><div class="btn red waves-effect modal-trigger" data-target="delAccountModal">Delete account</div></td>
-                    </tr>
-                </tbody>
             </table>
+
+            <p class="flow-text">Actions</p>
+            <div class="btn red waves-effect modal-trigger align-right" data-target="delAccountModal">Delete account</div>
         </div>
     </div>
 
     <%- include('./dash/accountInfo/changePasswordModal') %>
     <%- include('./dash/accountInfo/delAccountModal') %>
+    <%- include('./dash/accountInfo/add2faModal') %>
 </main>
 <%- include('./footer') %>
 

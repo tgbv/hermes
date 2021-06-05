@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('global/head') %>
+    <title>Hermes - Change password</title>
+</head>
+<body>
+
+<%- include('header') %>
+<%- include('sidenav') %>
+
+<main class="container">
+    <div class="row">
+        <div class="col s12">
+
+            <p class="flow-text">Choose a new password</p>
+            <form method="POST" id="sendForm">
+                New password: <input type="password" id="password" name="password" required class="browser-default" minlength="8" maxlength="64">
+                <br>
+                <br>
+                Retype password: <input type="password" id="retyped" name="retyped" required class="browser-default" minlength="8" maxlength="64">
+                <br>
+                <br>
+
+                <div class="btn green darken-2 waves-effect waves-light" onclick="sendForm()">Change password</div>
+            </form>
+        </div>
+    </div>
+    
+</main>
+
+<%- include('footer') %>
+
+<script>
+    const _ = function(el){
+        return document.getElementById(el)
+    }
+
+    const toast = function(m){
+        M.toast({html:m})
+    }
+
+    <%- include('global/errors') %>
+    
+    const sendForm = function(){
+        if(document.getElementById('password').value === document.getElementById('retyped').value)
+            document.getElementById('sendForm').submit()
+        else
+            toast('Passwords do not match!')
+    };
+</script>
+
+</body>
+</html>

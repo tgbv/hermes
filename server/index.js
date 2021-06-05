@@ -6,9 +6,7 @@ const Dotenv = require('dotenv'); Dotenv.config()
 const Compress = require('compression')
 const {sHttp, DB} = require('./server');
 const {serverDown} = require('./middleware');
-
-const Path = require('path');
-
+const tofaInit = require('tofa-server-js').init;
 
 /*
 *   all config
@@ -20,6 +18,8 @@ const Path = require('path');
     } catch(e) {
         console.log("Could not connect to DB!", e)
     }
+
+    tofaInit('127.0.0.1:9050')
 
     const App = Express()
         App.disable('x-powered-by')

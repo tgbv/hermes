@@ -6,8 +6,7 @@
 const {DB} = require('../server')
 const {DataTypes} = require('sequelize')
 
-
-module.exports = DB.define('Users', {
+const Model = DB.define('Users', {
     id: {
         type: DataTypes.MEDIUMINT,
         primaryKey: true,
@@ -45,3 +44,9 @@ module.exports = DB.define('Users', {
     updatedAt: "updated_at",
 })
 
+Model.hasOne(require('./TofaTokens'), {
+    as: "tofa_token",
+    foreignKey: "user_id",
+})
+
+module.exports = Model

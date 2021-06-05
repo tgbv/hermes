@@ -19,6 +19,8 @@ module.exports = require('express').Router()
     .get('/sent-messages', DashController.showSentMessages)
 
     .post('/del-account', DashController.delAccount)
+    .post('/register-2fa', DashController.register2fa)
+    .get('/unlink-2fa', DashController.unlink2fa)
     //
 
     // Tickets related

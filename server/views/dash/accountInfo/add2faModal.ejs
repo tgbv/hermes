@@ -1,0 +1,33 @@
+<div id="add2faModal" class="modal">
+    <div class="modal-content">
+      <h4>Add 2FA</h4>
+      <form action="/dash/register-2fa" method="POST">
+
+        <p>
+            Hermes use Tofa as 2FA. You need to create an app in your Tofa Client
+            and then register Hermes with it. 
+            If you don't know how, please follow the tutorial on their 
+            <a target="_blank" href="http://7o5hh2f6gdxusghkqphrgwhs3xjqogakmusscbs4ektjv42sqeft4iqd.onion/pub/tutorial.htm">official site</a>.
+            After creating the app keep Tofa Client open and input the URI below:
+        </p>
+
+        <input type="text" 
+            class="browser-default" 
+            placeholder="Tofa App URI" 
+            name="uri"
+            style="width: 100%"
+        >
+        
+        <br>
+        <br>
+
+        <button class="btn green waves-effect waves-light">Register</button>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-red btn-flat">Abort</a>
+    </div>
+  </div>
+  <script>
+      M.Modal.init(document.getElementById('add2faModal'))
+  </script>

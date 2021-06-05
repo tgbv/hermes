@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('global/head') %>
+    <title>Hermes - Recover password</title>
+</head>
+<body>
+
+<%- include('header') %>
+<%- include('sidenav') %>
+
+<main class="container">
+    <div class="row">
+        <div class="col s12">
+
+            <p class="flow-text">Recover password</p>
+            <form method="POST" action="/recover-password/step1">
+                <p>
+                    <b>This will work only if you have 2FA registered with your account.</b>
+                </p>
+                <p>
+                    Open your Tofa Client.
+                    Hermes will attempt to contact Tofa Client and confirm it's indeed you
+                    the one requesting a new password. The process may fail at first but 
+                    don't be discouraged, with calm retry until it works.
+                </p>
+
+                Username: <input type="text" name="username" class="browser-default" required>
+                <br>
+                <br>
+
+                <button class="btn green darken-2 waves-effect waves-light">Recover</button>
+            </form>
+        </div>
+    </div>
+    
+</main>
+
+<%- include('footer') %>
+
+<script>
+    const _ = function(el){
+        return document.getElementById(el)
+    }
+
+    const toast = function(m){
+        M.toast({html:m})
+    }
+
+    <%- include('global/errors') %>
+
+</script>
+
+</body>
+</html>

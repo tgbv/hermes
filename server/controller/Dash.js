@@ -1,17 +1,22 @@
 const {t, redir, ApiKey, deleteUser} = require('../util')
-const { UsersModel, TicketChatModel, TicketsModel, SentMessagesModel} = require('../model')
+const { UsersModel, TicketChatModel, TicketsModel, SentMessagesModel, TofaTokens} = require('../model')
 const {ChangePasswordSchema} = require('../schemas')
 
+const {reg} = require('tofa-server-js')
+const {CallForbidden, RequestFailed, CallTimedOut, BadURI, CallRejected} = require('tofa-server-js/src/errors')
+
 const Argon2 = require('argon2')
-const Captcha = require('svg-captcha')
-const openTicket = require('../schemas/openTicket')
 
 /*
 *   reusable method for current controllers set
 */
 const getUser = async (id)=>{
     return await UsersModel.findOne({
-        where: {id}
+        where: {id},
+        include: [{
+            model:TofaTokens, 
+            as: "tofa_token",
+        }],
     })
 }
 
@@ -47,6 +52,75 @@ module.exports = {
         } catch(e){
             console.log(e)
            redir(res, `/dash?errors=["Server error occurred!"]`)
+        }
+    },
+
+    /**
+     *  Register 2FA with Tofa client
+     */
+    async register2fa(req, res){
+        const routeRedir = "/dash/account-information"
+
+        try {
+            let User = await getUser(req.session.user_id)
+
+            // attempt registration
+            let auth_token = await reg(req.body.uri, {
+                name: "Hermes Project",
+                description: `Hermes wants to register with your Tofa Client for account with username "${User.username}"`
+            })
+
+            // destroy previous record
+            await TofaTokens.destroy({
+                where: {
+                    user_id: User.id
+                }
+            })
+
+            // make new record
+            await TofaTokens.create({
+                user_id: User.id,
+                uri: req.body.uri,
+                auth_token,
+            })
+
+            redir(res, `${routeRedir}?errors=["2FA registered with success!"]`)
+        }catch(e){
+            let message = 'Server error occurred. Please retry.'
+
+            if(e instanceof BadURI)
+                message = "Invalid URI! Please retry."
+            if(e instanceof CallRejected)
+                message = "Client denied registration!"
+            if(e instanceof CallForbidden)
+                message = "Client is already registered for another service!"
+            if(e instanceof RequestFailed || e instanceof CallTimedOut)
+                message = "Client is not reachable. Please try again."
+
+            console.log(e)
+
+            redir(res, `${routeRedir}?errors=["${message}"]`)
+        }
+    },
+
+    /**
+     *  Unlinks Tofa 2FA
+     */
+    async unlink2fa(req, res){
+        const routeRedir = "/dash/account-information"
+
+        try {
+            // destroy previous record
+            await TofaTokens.destroy({
+                where: {
+                    user_id: req.session.user_id
+                }
+            })
+
+            redir(res, `${routeRedir}?errors=["2FA unlinked with success!"]`)
+        }catch(e){
+            console.log(e)
+            redir(res, `${routeRedir}?errors=["Server error occurred"]`)
         }
     },
 

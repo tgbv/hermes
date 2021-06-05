@@ -14,6 +14,9 @@ module.exports = {
     TicketsModel: require('./Tickets'),
     
     TicketChatModel: require('./TicketChat'),
+
+    TofaTokens: require('./TofaTokens'),
     
+    PRTokens: require('./PasswordResetTokens'),
     
 }

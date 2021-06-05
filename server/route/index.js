@@ -15,6 +15,11 @@ module.exports = require('express').Router()
     .use('/auth', Bodyparser.urlencoded(), session, setDefaultSessionData, isLoggedIn, require('./auth'))
 
     /*
+    *   recover password related
+    */
+    .use('/recover-password', Bodyparser.urlencoded(), session, setDefaultSessionData, require('./recover-password'))
+
+    /*
     *   dash related
     */
     .use('/dash', Bodyparser.urlencoded(), session, setDefaultSessionData, mustBeLoggedIn, require('./dash'))
