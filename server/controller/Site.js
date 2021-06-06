@@ -8,7 +8,7 @@ module.exports = {
     *   shows site's homepage
     */
     showHomepage(req, res){
-        let C = makeCaptcha()
+        let C = makeCaptcha(10)
         let Cdemo = makeCaptcha()
 
         req.session.captcha_reg = C.text
