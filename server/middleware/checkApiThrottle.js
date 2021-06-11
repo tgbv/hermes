@@ -1,4 +1,5 @@
 const {ApiThrottlesModel} = require('../model')
+const {getDynEnv} = require('../util')
 
 /*
 *   handles the API throttle
@@ -7,8 +8,8 @@ const {ApiThrottlesModel} = require('../model')
     2. if nr of requests exceeds MAX_REQ_NR and touch is still within TOUCH_INTERVAL, block requests
     3. otherwise allow request and reset the counter in database if necessary
 */
-const MAX_REQ_NR = 5
-const TOUCH_INTERVAL = 60 // seconds
+const MAX_REQ_NR = getDynEnv('api_max_req_nr')
+const TOUCH_INTERVAL = getDynEnv('api_touch_interval') // seconds
 
 
 // helper to update throttle
