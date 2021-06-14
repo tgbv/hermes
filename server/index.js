@@ -42,7 +42,7 @@ const tofaInit = require('tofa-server-js').init;
 
 
     // once config is done, we can put our servers online
-    Server.listen(process.env.LISTEN_PORT, ()=>{
+    Server.listen(process.env.LISTEN_PORT, "127.0.0.1", ()=>{
         console.log(`Listening on :${process.env.LISTEN_PORT}`)
     }) 
 })();
